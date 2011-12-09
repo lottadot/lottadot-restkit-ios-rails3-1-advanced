@@ -9,7 +9,7 @@ const struct TopicAttributes TopicAttributes = {
 };
 
 const struct TopicRelationships TopicRelationships = {
-	.post = @"post",
+	.posts = @"posts",
 };
 
 const struct TopicFetchedProperties TopicFetchedProperties = {
@@ -62,8 +62,17 @@ const struct TopicFetchedProperties TopicFetchedProperties = {
 
 
 
-@dynamic post;
+@dynamic posts;
 
+	
+- (NSMutableSet*)postsSet {
+	[self willAccessValueForKey:@"posts"];
+  
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"posts"];
+  
+	[self didAccessValueForKey:@"posts"];
+	return result;
+}
 	
 
 

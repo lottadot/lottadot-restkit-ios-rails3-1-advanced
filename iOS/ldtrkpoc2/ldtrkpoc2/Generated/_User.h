@@ -5,24 +5,22 @@
 #import "RootManagedObjectClass.h"
 
 extern const struct UserAttributes {
-	__unsafe_unretained NSString *email;
-	__unsafe_unretained NSString *userName;
 } UserAttributes;
 
 extern const struct UserRelationships {
+	__unsafe_unretained NSString *posts;
 } UserRelationships;
 
 extern const struct UserFetchedProperties {
 } UserFetchedProperties;
 
-
-
+@class Post;
 
 
 @interface UserID : NSManagedObjectID {}
 @end
 
-@interface _User : RootManagedObjectClass {}
+@interface _User : NSManagedObject {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
@@ -31,19 +29,10 @@ extern const struct UserFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSString *email;
 
+@property (nonatomic, strong) NSSet* posts;
 
-//- (BOOL)validateEmail:(id*)value_ error:(NSError**)error_;
-
-
-
-
-@property (nonatomic, strong) NSString *userName;
-
-
-//- (BOOL)validateUserName:(id*)value_ error:(NSError**)error_;
-
+- (NSMutableSet*)postsSet;
 
 
 
@@ -52,21 +41,19 @@ extern const struct UserFetchedProperties {
 
 @interface _User (CoreDataGeneratedAccessors)
 
+- (void)addPosts:(NSSet*)value_;
+- (void)removePosts:(NSSet*)value_;
+- (void)addPostsObject:(Post*)value_;
+- (void)removePostsObject:(Post*)value_;
+
 @end
 
 @interface _User (CoreDataGeneratedPrimitiveAccessors)
 
 
-- (NSString*)primitiveEmail;
-- (void)setPrimitiveEmail:(NSString*)value;
 
-
-
-
-- (NSString*)primitiveUserName;
-- (void)setPrimitiveUserName:(NSString*)value;
-
-
+- (NSMutableSet*)primitivePosts;
+- (void)setPrimitivePosts:(NSMutableSet*)value;
 
 
 @end

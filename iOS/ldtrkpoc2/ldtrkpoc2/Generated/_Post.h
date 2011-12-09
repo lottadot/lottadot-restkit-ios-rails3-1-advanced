@@ -10,12 +10,14 @@ extern const struct PostAttributes {
 } PostAttributes;
 
 extern const struct PostRelationships {
+	__unsafe_unretained NSString *author;
 	__unsafe_unretained NSString *topic;
 } PostRelationships;
 
 extern const struct PostFetchedProperties {
 } PostFetchedProperties;
 
+@class User;
 @class Topic;
 
 
@@ -50,6 +52,13 @@ extern const struct PostFetchedProperties {
 
 
 
+@property (nonatomic, strong) User* author;
+
+//- (BOOL)validateAuthor:(id*)value_ error:(NSError**)error_;
+
+
+
+
 @property (nonatomic, strong) Topic* topic;
 
 //- (BOOL)validateTopic:(id*)value_ error:(NSError**)error_;
@@ -76,6 +85,11 @@ extern const struct PostFetchedProperties {
 - (void)setPrimitiveTitle:(NSString*)value;
 
 
+
+
+
+- (User*)primitiveAuthor;
+- (void)setPrimitiveAuthor:(User*)value;
 
 
 

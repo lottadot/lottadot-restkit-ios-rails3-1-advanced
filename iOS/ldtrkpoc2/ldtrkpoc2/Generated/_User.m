@@ -4,11 +4,10 @@
 #import "_User.h"
 
 const struct UserAttributes UserAttributes = {
-	.email = @"email",
-	.userName = @"userName",
 };
 
 const struct UserRelationships UserRelationships = {
+	.posts = @"posts",
 };
 
 const struct UserFetchedProperties UserFetchedProperties = {
@@ -21,16 +20,16 @@ const struct UserFetchedProperties UserFetchedProperties = {
 
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
 	NSParameterAssert(moc_);
-	return [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:moc_];
+	return [NSEntityDescription insertNewObjectForEntityForName:@"Author" inManagedObjectContext:moc_];
 }
 
 + (NSString*)entityName {
-	return @"User";
+	return @"Author";
 }
 
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_ {
 	NSParameterAssert(moc_);
-	return [NSEntityDescription entityForName:@"User" inManagedObjectContext:moc_];
+	return [NSEntityDescription entityForName:@"Author" inManagedObjectContext:moc_];
 }
 
 - (UserID*)objectID {
@@ -47,19 +46,18 @@ const struct UserFetchedProperties UserFetchedProperties = {
 
 
 
-@dynamic email;
+@dynamic posts;
 
-
-
-
-
-
-@dynamic userName;
-
-
-
-
-
+	
+- (NSMutableSet*)postsSet {
+	[self willAccessValueForKey:@"posts"];
+  
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"posts"];
+  
+	[self didAccessValueForKey:@"posts"];
+	return result;
+}
+	
 
 
 

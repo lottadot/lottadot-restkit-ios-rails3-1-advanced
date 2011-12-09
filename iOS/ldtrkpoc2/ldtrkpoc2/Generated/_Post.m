@@ -9,6 +9,7 @@ const struct PostAttributes PostAttributes = {
 };
 
 const struct PostRelationships PostRelationships = {
+	.author = @"author",
 	.topic = @"topic",
 };
 
@@ -61,6 +62,10 @@ const struct PostFetchedProperties PostFetchedProperties = {
 
 
 
+
+@dynamic author;
+
+	
 
 @dynamic topic;
 

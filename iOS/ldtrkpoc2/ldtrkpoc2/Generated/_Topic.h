@@ -10,7 +10,7 @@ extern const struct TopicAttributes {
 } TopicAttributes;
 
 extern const struct TopicRelationships {
-	__unsafe_unretained NSString *post;
+	__unsafe_unretained NSString *posts;
 } TopicRelationships;
 
 extern const struct TopicFetchedProperties {
@@ -50,9 +50,9 @@ extern const struct TopicFetchedProperties {
 
 
 
-@property (nonatomic, strong) Post* post;
+@property (nonatomic, strong) NSSet* posts;
 
-//- (BOOL)validatePost:(id*)value_ error:(NSError**)error_;
+- (NSMutableSet*)postsSet;
 
 
 
@@ -60,6 +60,11 @@ extern const struct TopicFetchedProperties {
 @end
 
 @interface _Topic (CoreDataGeneratedAccessors)
+
+- (void)addPosts:(NSSet*)value_;
+- (void)removePosts:(NSSet*)value_;
+- (void)addPostsObject:(Post*)value_;
+- (void)removePostsObject:(Post*)value_;
 
 @end
 
@@ -79,8 +84,8 @@ extern const struct TopicFetchedProperties {
 
 
 
-- (Post*)primitivePost;
-- (void)setPrimitivePost:(Post*)value;
+- (NSMutableSet*)primitivePosts;
+- (void)setPrimitivePosts:(NSMutableSet*)value;
 
 
 @end
