@@ -17,15 +17,17 @@
   </div>
   <div class="field">
     <%= f.label :body %><br />
-    <%= f.text_field :body %>
+    <%= f.text_area :body %>
   </div>
   <div class="field">
     <%= f.label :topic %><br />
-    <%= f.text_field :topic %>
+	<%= f.select(:topic_id,Topic.all.collect {|topic|
+	[topic.title,topic.id]},:prompt => true, :include_blank => true) %>
   </div>
   <div class="field">
     <%= f.label :author %><br />
-    <%= f.text_field :author %>
+    <%= f.select(:author_id,Author.all.collect {|author|
+	[author.username,author.id]},:prompt => true, :include_blank => true) %>
   </div>
   <div class="actions">
     <%= f.submit %>

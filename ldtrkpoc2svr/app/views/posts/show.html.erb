@@ -11,13 +11,13 @@
 </p>
 
 <p>
-  <b>Topic:</b>
-  <%= @post.topic %>
+  <b>Topic:</b>d
+  <%= link_to @post.topic.title, topic_path(@post.topic) %>
 </p>
 
 <p>
   <b>Author:</b>
-  <%= @post.author %>
+  <%= link_to @post.author.username, author_path(@post.author) %>
 </p>
 
 
