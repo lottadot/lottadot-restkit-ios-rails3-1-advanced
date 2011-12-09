@@ -1,2 +1,7 @@
 <h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+
+<ul>
+	<li><%= link_to 'Users', users_path, { :title => "Users"} %></li>
+	<li><%= link_to 'Topics', topics_path, { :title => "Topics"} %></li>
+	<li><%= link_to 'Posts', posts_path, { :title => "Posts"} %></li>
+</ul>
