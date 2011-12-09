@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="878" systemVersion="11C74" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Author" isAbstract="YES" parentEntity="User" syncable="YES">
-        <relationship name="post" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Post" inverseName="author" inverseEntity="Post" syncable="YES"/>
-    </entity>
-    <entity name="Post" syncable="YES">
+    <entity name="Post" representedClassName="Post" syncable="YES">
         <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="author" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Author" inverseName="post" inverseEntity="Author" syncable="YES"/>
         <relationship name="topic" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Topic" inverseName="post" inverseEntity="Topic" syncable="YES"/>
     </entity>
-    <entity name="Topic" syncable="YES">
+    <entity name="Topic" representedClassName="Topic" syncable="YES">
         <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="post" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Post" inverseName="topic" inverseEntity="Post" syncable="YES"/>
     </entity>
-    <entity name="User" syncable="YES">
+    <entity name="User" representedClassName="User" syncable="YES">
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="User" positionX="160" positionY="192" width="128" height="75"/>
-        <element name="Post" positionX="160" positionY="192" width="128" height="105"/>
+        <element name="Post" positionX="160" positionY="192" width="128" height="90"/>
         <element name="Topic" positionX="160" positionY="192" width="128" height="90"/>
-        <element name="Author" positionX="160" positionY="192" width="128" height="60"/>
+        <element name="User" positionX="160" positionY="192" width="128" height="75"/>
     </elements>
 </model>

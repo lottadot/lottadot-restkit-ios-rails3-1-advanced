@@ -29,6 +29,13 @@
 		34C08AC91491A4CC001EA6FF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C08AC31491A4CC001EA6FF /* SystemConfiguration.framework */; };
 		34C08ACB1491A4F1001EA6FF /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C08ACA1491A4F1001EA6FF /* libxml2.dylib */; };
 		34C08AEC1491A747001EA6FF /* ldtrkpoc2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 34C08AEA1491A747001EA6FF /* ldtrkpoc2.xcdatamodeld */; };
+		34DFC9181492637F00623D70 /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DFC9131492637F00623D70 /* Post.m */; };
+		34DFC9191492637F00623D70 /* Topic.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DFC9151492637F00623D70 /* Topic.m */; };
+		34DFC91A1492637F00623D70 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DFC9171492637F00623D70 /* User.m */; };
+		34DFC91F1492640F00623D70 /* RootManagedObjectClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DFC91E1492640F00623D70 /* RootManagedObjectClass.m */; };
+		34DFC927149264DD00623D70 /* _Post.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DFC922149264DD00623D70 /* _Post.m */; };
+		34DFC928149264DD00623D70 /* _Topic.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DFC924149264DD00623D70 /* _Topic.m */; };
+		34DFC929149264DD00623D70 /* _User.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DFC926149264DD00623D70 /* _User.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +84,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		343168AD14924D250090A004 /* MyModelEntities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyModelEntities.h; sourceTree = "<group>"; };
 		34C08A6F1491A2E6001EA6FF /* ldtrkpoc2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ldtrkpoc2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34C08A731491A2E6001EA6FF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		34C08A751491A2E6001EA6FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -106,6 +114,20 @@
 		34C08ACA1491A4F1001EA6FF /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		34C08AEB1491A747001EA6FF /* ldtrkpoc2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ldtrkpoc2.xcdatamodel; sourceTree = "<group>"; };
 		34C08B311491AB94001EA6FF /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		34DFC9121492637F00623D70 /* Post.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Post.h; path = models/Post.h; sourceTree = "<group>"; };
+		34DFC9131492637F00623D70 /* Post.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Post.m; path = models/Post.m; sourceTree = "<group>"; };
+		34DFC9141492637F00623D70 /* Topic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Topic.h; path = models/Topic.h; sourceTree = "<group>"; };
+		34DFC9151492637F00623D70 /* Topic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Topic.m; path = models/Topic.m; sourceTree = "<group>"; };
+		34DFC9161492637F00623D70 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
+		34DFC9171492637F00623D70 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
+		34DFC91D1492640F00623D70 /* RootManagedObjectClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootManagedObjectClass.h; sourceTree = "<group>"; };
+		34DFC91E1492640F00623D70 /* RootManagedObjectClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootManagedObjectClass.m; sourceTree = "<group>"; };
+		34DFC921149264DD00623D70 /* _Post.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _Post.h; path = Generated/_Post.h; sourceTree = "<group>"; };
+		34DFC922149264DD00623D70 /* _Post.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _Post.m; path = Generated/_Post.m; sourceTree = "<group>"; };
+		34DFC923149264DD00623D70 /* _Topic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _Topic.h; path = Generated/_Topic.h; sourceTree = "<group>"; };
+		34DFC924149264DD00623D70 /* _Topic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _Topic.m; path = Generated/_Topic.m; sourceTree = "<group>"; };
+		34DFC925149264DD00623D70 /* _User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _User.h; path = Generated/_User.h; sourceTree = "<group>"; };
+		34DFC926149264DD00623D70 /* _User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _User.m; path = Generated/_User.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,12 +203,14 @@
 		34C08A791491A2E6001EA6FF /* ldtrkpoc2 */ = {
 			isa = PBXGroup;
 			children = (
+				34DFC911149262DA00623D70 /* Models */,
 				34C08AE51491A709001EA6FF /* Data */,
+				343168AD14924D250090A004 /* MyModelEntities.h */,
+				34C08B311491AB94001EA6FF /* Constants.h */,
 				34C08A821491A2E6001EA6FF /* LDTAppDelegate.h */,
 				34C08A831491A2E6001EA6FF /* LDTAppDelegate.m */,
 				34C08A851491A2E6001EA6FF /* MainStoryboard.storyboard */,
 				34C08A881491A2E6001EA6FF /* LDTViewController.h */,
-				34C08B311491AB94001EA6FF /* Constants.h */,
 				34C08A891491A2E6001EA6FF /* LDTViewController.m */,
 				34C08A7A1491A2E6001EA6FF /* Supporting Files */,
 			);
@@ -248,6 +272,35 @@
 				34C08AEA1491A747001EA6FF /* ldtrkpoc2.xcdatamodeld */,
 			);
 			name = Data;
+			sourceTree = "<group>";
+		};
+		34DFC911149262DA00623D70 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				34DFC920149264CF00623D70 /* Generated */,
+				34DFC9121492637F00623D70 /* Post.h */,
+				34DFC9131492637F00623D70 /* Post.m */,
+				34DFC9141492637F00623D70 /* Topic.h */,
+				34DFC9151492637F00623D70 /* Topic.m */,
+				34DFC9161492637F00623D70 /* User.h */,
+				34DFC9171492637F00623D70 /* User.m */,
+				34DFC91D1492640F00623D70 /* RootManagedObjectClass.h */,
+				34DFC91E1492640F00623D70 /* RootManagedObjectClass.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		34DFC920149264CF00623D70 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				34DFC921149264DD00623D70 /* _Post.h */,
+				34DFC922149264DD00623D70 /* _Post.m */,
+				34DFC923149264DD00623D70 /* _Topic.h */,
+				34DFC924149264DD00623D70 /* _Topic.m */,
+				34DFC925149264DD00623D70 /* _User.h */,
+				34DFC926149264DD00623D70 /* _User.m */,
+			);
+			name = Generated;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -399,6 +452,13 @@
 				34C08A841491A2E6001EA6FF /* LDTAppDelegate.m in Sources */,
 				34C08A8A1491A2E6001EA6FF /* LDTViewController.m in Sources */,
 				34C08AEC1491A747001EA6FF /* ldtrkpoc2.xcdatamodeld in Sources */,
+				34DFC9181492637F00623D70 /* Post.m in Sources */,
+				34DFC9191492637F00623D70 /* Topic.m in Sources */,
+				34DFC91A1492637F00623D70 /* User.m in Sources */,
+				34DFC91F1492640F00623D70 /* RootManagedObjectClass.m in Sources */,
+				34DFC927149264DD00623D70 /* _Post.m in Sources */,
+				34DFC928149264DD00623D70 /* _Topic.m in Sources */,
+				34DFC929149264DD00623D70 /* _User.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -503,6 +563,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ldtrkpoc2/ldtrkpoc2-Prefix.pch";
+				HEADER_SEARCH_PATHS = "Generated/**";
 				INFOPLIST_FILE = "ldtrkpoc2/ldtrkpoc2-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -514,6 +575,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ldtrkpoc2/ldtrkpoc2-Prefix.pch";
+				HEADER_SEARCH_PATHS = "Generated/**";
 				INFOPLIST_FILE = "ldtrkpoc2/ldtrkpoc2-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

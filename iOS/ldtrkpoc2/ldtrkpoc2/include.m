@@ -1,0 +1,6 @@
+#import "Post.m"
+#import "_Post.m"
+#import "Topic.m"
+#import "_Topic.m"
+#import "User.m"
+#import "_User.m"
