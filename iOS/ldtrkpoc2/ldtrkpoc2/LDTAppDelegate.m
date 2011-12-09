@@ -8,6 +8,10 @@
 
 #import "LDTAppDelegate.h"
 
+@interface LDTAppDelegate (Private)
+- (void)setupRestKit;
+@end;
+
 @implementation LDTAppDelegate
 
 @synthesize window = _window;
@@ -77,6 +81,13 @@
             abort();
         } 
     }
+}
+
+#pragma mark - Restkit Stack
+
+- (void)setupRestKit {
+    
+    //TODO: Add Restkit
 }
 
 #pragma mark - Core Data stack
