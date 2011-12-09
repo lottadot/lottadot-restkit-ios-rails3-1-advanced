@@ -1,6 +1,6 @@
 //
 //  LDTAppDelegate.m
-//  ldtrkpoc2
+//  cdstuff
 //
 //  Created by Shane Zatezalo on 12/8/11.
 //  Copyright (c) 2011 Personal. All rights reserved.
@@ -17,10 +17,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
     return YES;
 }
-							
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     /*
@@ -53,11 +56,8 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-    /*
-     Called when the application is about to terminate.
-     Save data if appropriate.
-     See also applicationDidEnterBackground:.
-     */
+    // Saves changes in the application's managed object context before the application terminates.
+    [self saveContext];
 }
 
 - (void)saveContext
@@ -172,6 +172,5 @@
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
-
 
 @end

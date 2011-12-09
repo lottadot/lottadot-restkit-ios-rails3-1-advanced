@@ -28,6 +28,7 @@
 		34C08AC81491A4CC001EA6FF /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C08AC21491A4CC001EA6FF /* Security.framework */; };
 		34C08AC91491A4CC001EA6FF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C08AC31491A4CC001EA6FF /* SystemConfiguration.framework */; };
 		34C08ACB1491A4F1001EA6FF /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C08ACA1491A4F1001EA6FF /* libxml2.dylib */; };
+		34C08AEC1491A747001EA6FF /* ldtrkpoc2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 34C08AEA1491A747001EA6FF /* ldtrkpoc2.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +104,8 @@
 		34C08AC21491A4CC001EA6FF /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		34C08AC31491A4CC001EA6FF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		34C08ACA1491A4F1001EA6FF /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		34C08AEB1491A747001EA6FF /* ldtrkpoc2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ldtrkpoc2.xcdatamodel; sourceTree = "<group>"; };
+		34C08B311491AB94001EA6FF /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,7 +143,6 @@
 		34C08A641491A2E6001EA6FF = {
 			isa = PBXGroup;
 			children = (
-				34C08ACA1491A4F1001EA6FF /* libxml2.dylib */,
 				34C08AA81491A460001EA6FF /* external */,
 				34C08A791491A2E6001EA6FF /* ldtrkpoc2 */,
 				34C08A971491A2E7001EA6FF /* ldtrkpoc2Tests */,
@@ -161,6 +163,7 @@
 		34C08A721491A2E6001EA6FF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				34C08ACA1491A4F1001EA6FF /* libxml2.dylib */,
 				34C08ABE1491A4CC001EA6FF /* CFNetwork.framework */,
 				34C08ABF1491A4CC001EA6FF /* CoreData.framework */,
 				34C08AC01491A4CC001EA6FF /* CoreFoundation.framework */,
@@ -178,10 +181,12 @@
 		34C08A791491A2E6001EA6FF /* ldtrkpoc2 */ = {
 			isa = PBXGroup;
 			children = (
+				34C08AE51491A709001EA6FF /* Data */,
 				34C08A821491A2E6001EA6FF /* LDTAppDelegate.h */,
 				34C08A831491A2E6001EA6FF /* LDTAppDelegate.m */,
 				34C08A851491A2E6001EA6FF /* MainStoryboard.storyboard */,
 				34C08A881491A2E6001EA6FF /* LDTViewController.h */,
+				34C08B311491AB94001EA6FF /* Constants.h */,
 				34C08A891491A2E6001EA6FF /* LDTViewController.m */,
 				34C08A7A1491A2E6001EA6FF /* Supporting Files */,
 			);
@@ -235,6 +240,14 @@
 				34C08ABA1491A46A001EA6FF /* RestKitFrameworkTests.octest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		34C08AE51491A709001EA6FF /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				34C08AEA1491A747001EA6FF /* ldtrkpoc2.xcdatamodeld */,
+			);
+			name = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -385,6 +398,7 @@
 				34C08A801491A2E6001EA6FF /* main.m in Sources */,
 				34C08A841491A2E6001EA6FF /* LDTAppDelegate.m in Sources */,
 				34C08A8A1491A2E6001EA6FF /* LDTViewController.m in Sources */,
+				34C08AEC1491A747001EA6FF /* ldtrkpoc2.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -559,6 +573,7 @@
 				34C08AA41491A2E7001EA6FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		34C08AA51491A2E7001EA6FF /* Build configuration list for PBXNativeTarget "ldtrkpoc2Tests" */ = {
 			isa = XCConfigurationList;
@@ -567,8 +582,22 @@
 				34C08AA71491A2E7001EA6FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		34C08AEA1491A747001EA6FF /* ldtrkpoc2.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				34C08AEB1491A747001EA6FF /* ldtrkpoc2.xcdatamodel */,
+			);
+			currentVersion = 34C08AEB1491A747001EA6FF /* ldtrkpoc2.xcdatamodel */;
+			path = ldtrkpoc2.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 34C08A661491A2E6001EA6FF /* Project object */;
 }
