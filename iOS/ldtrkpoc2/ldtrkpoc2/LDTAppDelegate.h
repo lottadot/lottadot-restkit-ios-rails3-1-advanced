@@ -19,4 +19,6 @@
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 
+#define ApplicationDelegate ((LDTAppDelegate *)[UIApplication sharedApplication].delegate)
+
 @end

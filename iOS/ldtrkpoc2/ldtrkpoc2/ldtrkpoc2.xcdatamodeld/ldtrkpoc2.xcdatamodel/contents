@@ -20,10 +20,10 @@
         <attribute name="userName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Post" positionX="160" positionY="192" width="128" height="90"/>
-        <element name="Topic" positionX="160" positionY="192" width="128" height="90"/>
-        <element name="Author" positionX="160" positionY="192" width="128" height="60"/>
-        <element name="User" positionX="160" positionY="192" width="128" height="75"/>
-        <element name="Administrator" positionX="160" positionY="192" width="128" height="45"/>
+        <element name="Administrator" positionX="180" positionY="225" width="128" height="45"/>
+        <element name="Author" positionX="241" positionY="54" width="128" height="60"/>
+        <element name="Post" positionX="-54" positionY="189" width="128" height="90"/>
+        <element name="Topic" positionX="-137" positionY="324" width="128" height="90"/>
+        <element name="User" positionX="-216" positionY="-27" width="128" height="75"/>
     </elements>
 </model>
