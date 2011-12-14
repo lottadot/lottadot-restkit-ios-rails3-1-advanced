@@ -1,7 +1,11 @@
 Ldtrkpoc2svr::Application.routes.draw do
-  resources :posts
-
-  resources :topics
+  resources :posts do
+    resources :authors
+  end
+  
+  resources :topics do
+    resources :posts
+  end
 
   resources :users
   
