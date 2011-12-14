@@ -10,6 +10,7 @@
 		3426F4A71497C6D200374120 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3426F4A61497C6D200374120 /* CoreDataTableViewController.m */; };
 		3426F4ED1498119200374120 /* _Author.m in Sources */ = {isa = PBXBuildFile; fileRef = 3426F4EC1498119200374120 /* _Author.m */; };
 		3426F4F01498119D00374120 /* Author.m in Sources */ = {isa = PBXBuildFile; fileRef = 3426F4EF1498119C00374120 /* Author.m */; };
+		3438DBFC14985BD400EF682F /* AuthorsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3438DBFB14985BD400EF682F /* AuthorsTableViewController.m */; };
 		346D54BC149835BA00D1B4CE /* PostsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 346D54BA149835BA00D1B4CE /* PostsTableViewController.m */; };
 		34C08A741491A2E6001EA6FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C08A731491A2E6001EA6FF /* UIKit.framework */; };
 		34C08A761491A2E6001EA6FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C08A751491A2E6001EA6FF /* Foundation.framework */; };
@@ -93,6 +94,8 @@
 		3426F4EE1498119C00374120 /* Author.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Author.h; path = models/Author.h; sourceTree = "<group>"; };
 		3426F4EF1498119C00374120 /* Author.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Author.m; path = models/Author.m; sourceTree = "<group>"; };
 		343168AD14924D250090A004 /* MyModelEntities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyModelEntities.h; sourceTree = "<group>"; };
+		3438DBFA14985BD400EF682F /* AuthorsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorsTableViewController.h; sourceTree = "<group>"; };
+		3438DBFB14985BD400EF682F /* AuthorsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthorsTableViewController.m; sourceTree = "<group>"; };
 		346D54B9149835BA00D1B4CE /* PostsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostsTableViewController.h; sourceTree = "<group>"; };
 		346D54BA149835BA00D1B4CE /* PostsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostsTableViewController.m; sourceTree = "<group>"; };
 		34C08A6F1491A2E6001EA6FF /* ldtrkpoc2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ldtrkpoc2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -220,6 +223,8 @@
 				34C08A891491A2E6001EA6FF /* TopicsTableViewController.m */,
 				346D54B9149835BA00D1B4CE /* PostsTableViewController.h */,
 				346D54BA149835BA00D1B4CE /* PostsTableViewController.m */,
+				3438DBFA14985BD400EF682F /* AuthorsTableViewController.h */,
+				3438DBFB14985BD400EF682F /* AuthorsTableViewController.m */,
 				34C08A7A1491A2E6001EA6FF /* Supporting Files */,
 			);
 			path = ldtrkpoc2;
@@ -471,6 +476,7 @@
 				3426F4A71497C6D200374120 /* CoreDataTableViewController.m in Sources */,
 				3426F4ED1498119200374120 /* _Author.m in Sources */,
 				3426F4F01498119D00374120 /* Author.m in Sources */,
+				3438DBFC14985BD400EF682F /* AuthorsTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
