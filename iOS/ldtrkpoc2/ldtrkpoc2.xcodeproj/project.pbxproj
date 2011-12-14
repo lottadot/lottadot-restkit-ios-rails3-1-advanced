@@ -10,6 +10,7 @@
 		3426F4A71497C6D200374120 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3426F4A61497C6D200374120 /* CoreDataTableViewController.m */; };
 		3426F4ED1498119200374120 /* _Author.m in Sources */ = {isa = PBXBuildFile; fileRef = 3426F4EC1498119200374120 /* _Author.m */; };
 		3426F4F01498119D00374120 /* Author.m in Sources */ = {isa = PBXBuildFile; fileRef = 3426F4EF1498119C00374120 /* Author.m */; };
+		346D54BC149835BA00D1B4CE /* PostsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 346D54BA149835BA00D1B4CE /* PostsTableViewController.m */; };
 		34C08A741491A2E6001EA6FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C08A731491A2E6001EA6FF /* UIKit.framework */; };
 		34C08A761491A2E6001EA6FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C08A751491A2E6001EA6FF /* Foundation.framework */; };
 		34C08A781491A2E6001EA6FF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C08A771491A2E6001EA6FF /* CoreGraphics.framework */; };
@@ -92,6 +93,8 @@
 		3426F4EE1498119C00374120 /* Author.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Author.h; path = models/Author.h; sourceTree = "<group>"; };
 		3426F4EF1498119C00374120 /* Author.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Author.m; path = models/Author.m; sourceTree = "<group>"; };
 		343168AD14924D250090A004 /* MyModelEntities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyModelEntities.h; sourceTree = "<group>"; };
+		346D54B9149835BA00D1B4CE /* PostsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostsTableViewController.h; sourceTree = "<group>"; };
+		346D54BA149835BA00D1B4CE /* PostsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostsTableViewController.m; sourceTree = "<group>"; };
 		34C08A6F1491A2E6001EA6FF /* ldtrkpoc2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ldtrkpoc2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34C08A731491A2E6001EA6FF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		34C08A751491A2E6001EA6FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -215,6 +218,8 @@
 				34C08A851491A2E6001EA6FF /* MainStoryboard.storyboard */,
 				34C08A881491A2E6001EA6FF /* TopicsTableViewController.h */,
 				34C08A891491A2E6001EA6FF /* TopicsTableViewController.m */,
+				346D54B9149835BA00D1B4CE /* PostsTableViewController.h */,
+				346D54BA149835BA00D1B4CE /* PostsTableViewController.m */,
 				34C08A7A1491A2E6001EA6FF /* Supporting Files */,
 			);
 			path = ldtrkpoc2;
@@ -457,6 +462,7 @@
 				34C08A841491A2E6001EA6FF /* LDTAppDelegate.m in Sources */,
 				34C08A8A1491A2E6001EA6FF /* TopicsTableViewController.m in Sources */,
 				34C08AEC1491A747001EA6FF /* ldtrkpoc2.xcdatamodeld in Sources */,
+				346D54BC149835BA00D1B4CE /* PostsTableViewController.m in Sources */,
 				34DFC9181492637F00623D70 /* Post.m in Sources */,
 				34DFC9191492637F00623D70 /* Topic.m in Sources */,
 				34DFC91F1492640F00623D70 /* RootManagedObjectClass.m in Sources */,

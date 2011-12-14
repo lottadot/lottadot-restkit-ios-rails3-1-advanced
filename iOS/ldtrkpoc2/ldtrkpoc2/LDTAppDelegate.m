@@ -97,6 +97,11 @@
     RKClient *client = [RKClient clientWithBaseURL:LDTHOSTNAME];
     RKLogConfigureByName("RestKit/Network", RKLogLevelDebug);
     RKLogInfo(@"Configured RestKit Client: %@", client);
+    
+    // See RKLog.h for more info on using the logging system to debug. 
+    //RKLogConfigureByName("RestKit/Network", RKLogLevelTrace); 
+    //RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelTrace); 
+    
     // Enable automatic network activity indicator management
     client.requestQueue.showsNetworkActivityIndicatorWhenBusy = YES;
     
@@ -160,12 +165,12 @@
     [postMapping mapKeyPathsToAttributes:@"id", @"postID",
      @"title", @"title",
      @"body", @"body",
-     @"topic_id", @"topicId",
-     @"author_id", @"authorId",
+     @"topic_id", @"topicID",
+     @"author_id", @"authorID",
      nil];
     postMapping.primaryKeyAttribute = @"postID";
-    //[postMapping mapKeyPath:@"user_id" toAttribute:@"userId"];
-    //#[postMapping mapKeyPath:@"topic_id" toAttribute:@"topicId"];
+    //[postMapping mapKeyPath:@"user_id" toAttribute:@"userID"];
+    //#[postMapping mapKeyPath:@"topic_id" toAttribute:@"topicID"];
     
     [postMapping mapRelationship:@"post" withMapping:postMapping];
     [postMapping mapRelationship:@"topic" withMapping:topicMapping];
@@ -173,47 +178,48 @@
     
     [objectManager.mappingProvider setMapping:postMapping forKeyPath:@"posts"];
     
-//    RKObjectMapping *postSerializationMapping = [RKObjectMapping 
-//                                                  mappingForClass:[Topic class]]; 
-//    [postSerializationMapping mapKeyPath:@"id" 
-//                              toAttribute:@"id"]; 
-//    [postSerializationMapping mapKeyPath:@"title" 
-//                              toAttribute:@"title"]; 
-//    [postSerializationMapping mapKeyPath:@"body" 
-//                              toAttribute:@"body"];
-//    [postSerializationMapping mapKeyPath:@"topic_id" 
-//                             toAttribute:@"topicId"]; 
-//    [postSerializationMapping mapKeyPath:@"user_id" 
-//                             toAttribute:@"userId"]; 
-//    
-//    [objectManager.mappingProvider 
-//     setSerializationMapping:postSerializationMapping forClass:[Topic class]];
-//
-//    [objectManager.router routeClass:[Post class] toResourcePath:@"/posts/:id"];
-//
-//    [objectManager.router routeClass:[Post class] toResourcePath:@"/posts" forMethod:RKRequestMethodPOST];
+    RKObjectMapping *postSerializationMapping = [RKObjectMapping 
+                                                  mappingForClass:[Topic class]]; 
+    [postSerializationMapping mapKeyPath:@"id" 
+                              toAttribute:@"id"]; 
+    [postSerializationMapping mapKeyPath:@"title" 
+                              toAttribute:@"title"]; 
+    [postSerializationMapping mapKeyPath:@"body" 
+                              toAttribute:@"body"];
+    [postSerializationMapping mapKeyPath:@"topic_id" 
+                             toAttribute:@"topicID"]; 
+    [postSerializationMapping mapKeyPath:@"user_id" 
+                             toAttribute:@"userID"]; 
+    
+    [objectManager.mappingProvider 
+     setSerializationMapping:postSerializationMapping forClass:[Post class]];
+
+    [objectManager.router routeClass:[Post class] toResourcePath:@"/posts/:id"];
+
+    [objectManager.router routeClass:[Post class] toResourcePath:@"/posts" forMethod:RKRequestMethodPOST];
     
 #pragma Reskit Author Setup
     [authorMapping mapKeyPathsToAttributes:@"id", @"authorID",
      @"email", @"email",
-     @"username", @"body",
+     @"username", @"userName",
      nil];
     authorMapping.primaryKeyAttribute = @"authorID";
-    [authorMapping mapRelationship:@"author" withMapping:authorMapping];
+    
+    //[authorMapping mapRelationship:@"post" withMapping:postMapping];
     
     [objectManager.mappingProvider setMapping:authorMapping forKeyPath:@"authors"];
     
-//    RKObjectMapping *authorSerializationMapping = [RKObjectMapping 
-//                                                 mappingForClass:[Topic class]]; 
-//    [authorSerializationMapping mapKeyPath:@"id" 
-//                             toAttribute:@"id"]; 
-//    [authorSerializationMapping mapKeyPath:@"email" 
-//                             toAttribute:@"email"]; 
-//    [authorSerializationMapping mapKeyPath:@"userName" 
-//                             toAttribute:@"username"];
-//    
-//    [objectManager.mappingProvider 
-//     setSerializationMapping:authorSerializationMapping forClass:[Author class]];
+    RKObjectMapping *authorSerializationMapping = [RKObjectMapping 
+                                                 mappingForClass:[Author class]]; 
+    [authorSerializationMapping mapKeyPath:@"id" 
+                             toAttribute:@"id"]; 
+    [authorSerializationMapping mapKeyPath:@"email" 
+                             toAttribute:@"email"]; 
+    [authorSerializationMapping mapKeyPath:@"userName" 
+                             toAttribute:@"username"];
+    
+    [objectManager.mappingProvider 
+     setSerializationMapping:authorSerializationMapping forClass:[Author class]];
 //    
 //    [objectManager.router routeClass:[Author class] toResourcePath:@"/authors/:id"];
 //    

@@ -11,7 +11,9 @@ class Post < ActiveRecord::Base
       :id => self.id,
       :title => self.title,
       :body => self.body,
-      :author => self.author
+      #:author => self.author,
+      :author_id => self.author.id,
+      :topic_id => self.topic.id,
     }
   end
 end
