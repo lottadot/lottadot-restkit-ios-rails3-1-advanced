@@ -2,8 +2,12 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
-
+    if (params[:topic_id] && params[:topic_id] != '(null)')
+      @posts = Post.find(:all, :conditions => ["topic_id = #{params[:topic_id]}"])
+    else
+      @posts = Post.all
+    end
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @posts }
