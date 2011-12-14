@@ -5,8 +5,11 @@
 #import "RootManagedObjectClass.h"
 
 extern const struct PostAttributes {
+	__unsafe_unretained NSString *authorID;
 	__unsafe_unretained NSString *body;
+	__unsafe_unretained NSString *postID;
 	__unsafe_unretained NSString *title;
+	__unsafe_unretained NSString *topicID;
 } PostAttributes;
 
 extern const struct PostRelationships {
@@ -17,8 +20,11 @@ extern const struct PostRelationships {
 extern const struct PostFetchedProperties {
 } PostFetchedProperties;
 
-@class User;
+@class Author;
 @class Topic;
+
+
+
 
 
 
@@ -35,10 +41,34 @@ extern const struct PostFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSNumber *authorID;
+
+
+@property short authorIDValue;
+- (short)authorIDValue;
+- (void)setAuthorIDValue:(short)value_;
+
+//- (BOOL)validateAuthorID:(id*)value_ error:(NSError**)error_;
+
+
+
+
 @property (nonatomic, strong) NSString *body;
 
 
 //- (BOOL)validateBody:(id*)value_ error:(NSError**)error_;
+
+
+
+
+@property (nonatomic, strong) NSNumber *postID;
+
+
+@property short postIDValue;
+- (short)postIDValue;
+- (void)setPostIDValue:(short)value_;
+
+//- (BOOL)validatePostID:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -51,8 +81,20 @@ extern const struct PostFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSNumber *topicID;
 
-@property (nonatomic, strong) User* author;
+
+@property short topicIDValue;
+- (short)topicIDValue;
+- (void)setTopicIDValue:(short)value_;
+
+//- (BOOL)validateTopicID:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) Author* author;
 
 //- (BOOL)validateAuthor:(id*)value_ error:(NSError**)error_;
 
@@ -75,8 +117,26 @@ extern const struct PostFetchedProperties {
 @interface _Post (CoreDataGeneratedPrimitiveAccessors)
 
 
+- (NSNumber*)primitiveAuthorID;
+- (void)setPrimitiveAuthorID:(NSNumber*)value;
+
+- (short)primitiveAuthorIDValue;
+- (void)setPrimitiveAuthorIDValue:(short)value_;
+
+
+
+
 - (NSString*)primitiveBody;
 - (void)setPrimitiveBody:(NSString*)value;
+
+
+
+
+- (NSNumber*)primitivePostID;
+- (void)setPrimitivePostID:(NSNumber*)value;
+
+- (short)primitivePostIDValue;
+- (void)setPrimitivePostIDValue:(short)value_;
 
 
 
@@ -87,9 +147,18 @@ extern const struct PostFetchedProperties {
 
 
 
+- (NSNumber*)primitiveTopicID;
+- (void)setPrimitiveTopicID:(NSNumber*)value;
 
-- (User*)primitiveAuthor;
-- (void)setPrimitiveAuthor:(User*)value;
+- (short)primitiveTopicIDValue;
+- (void)setPrimitiveTopicIDValue:(short)value_;
+
+
+
+
+
+- (Author*)primitiveAuthor;
+- (void)setPrimitiveAuthor:(Author*)value;
 
 
 

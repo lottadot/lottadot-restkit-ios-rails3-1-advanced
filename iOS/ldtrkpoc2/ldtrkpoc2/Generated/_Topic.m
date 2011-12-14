@@ -6,6 +6,7 @@
 const struct TopicAttributes TopicAttributes = {
 	.body = @"body",
 	.title = @"title",
+	.topicID = @"topicID",
 };
 
 const struct TopicRelationships TopicRelationships = {
@@ -41,6 +42,14 @@ const struct TopicFetchedProperties TopicFetchedProperties = {
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
+	if ([key isEqualToString:@"bodyValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"body"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+	}
+	if ([key isEqualToString:@"topicIDValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"topicID"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+	}
 
 	return keyPaths;
 }
@@ -52,11 +61,56 @@ const struct TopicFetchedProperties TopicFetchedProperties = {
 
 
 
+- (short)bodyValue {
+	NSNumber *result = [self body];
+	return [result shortValue];
+}
+
+- (void)setBodyValue:(short)value_ {
+	[self setBody:[NSNumber numberWithShort:value_]];
+}
+
+- (short)primitiveBodyValue {
+	NSNumber *result = [self primitiveBody];
+	return [result shortValue];
+}
+
+- (void)setPrimitiveBodyValue:(short)value_ {
+	[self setPrimitiveBody:[NSNumber numberWithShort:value_]];
+}
+
+
 
 
 
 @dynamic title;
 
+
+
+
+
+
+@dynamic topicID;
+
+
+
+- (short)topicIDValue {
+	NSNumber *result = [self topicID];
+	return [result shortValue];
+}
+
+- (void)setTopicIDValue:(short)value_ {
+	[self setTopicID:[NSNumber numberWithShort:value_]];
+}
+
+- (short)primitiveTopicIDValue {
+	NSNumber *result = [self primitiveTopicID];
+	return [result shortValue];
+}
+
+- (void)setPrimitiveTopicIDValue:(short)value_ {
+	[self setPrimitiveTopicID:[NSNumber numberWithShort:value_]];
+}
 
 
 

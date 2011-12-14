@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <RestKit/RestKit.h>
+
+@class Topic, Post, Author;
 
 @interface LDTAppDelegate : UIResponder <UIApplicationDelegate>
 

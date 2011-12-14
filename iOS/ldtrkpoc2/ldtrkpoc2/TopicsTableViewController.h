@@ -10,6 +10,8 @@
 #import <CoreData/CoreData.h>
 #import "CoreDataTableViewController.h"
 
+@class Topic, Post, Author;
+
 @interface TopicsTableViewController : CoreDataTableViewController {
     
 }

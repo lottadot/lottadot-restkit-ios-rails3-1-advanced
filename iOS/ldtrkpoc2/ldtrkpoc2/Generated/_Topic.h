@@ -7,6 +7,7 @@
 extern const struct TopicAttributes {
 	__unsafe_unretained NSString *body;
 	__unsafe_unretained NSString *title;
+	__unsafe_unretained NSString *topicID;
 } TopicAttributes;
 
 extern const struct TopicRelationships {
@@ -17,6 +18,7 @@ extern const struct TopicFetchedProperties {
 } TopicFetchedProperties;
 
 @class Post;
+
 
 
 
@@ -33,8 +35,12 @@ extern const struct TopicFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSString *body;
+@property (nonatomic, strong) NSNumber *body;
 
+
+@property short bodyValue;
+- (short)bodyValue;
+- (void)setBodyValue:(short)value_;
 
 //- (BOOL)validateBody:(id*)value_ error:(NSError**)error_;
 
@@ -45,6 +51,18 @@ extern const struct TopicFetchedProperties {
 
 
 //- (BOOL)validateTitle:(id*)value_ error:(NSError**)error_;
+
+
+
+
+@property (nonatomic, strong) NSNumber *topicID;
+
+
+@property short topicIDValue;
+- (short)topicIDValue;
+- (void)setTopicIDValue:(short)value_;
+
+//- (BOOL)validateTopicID:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -71,14 +89,26 @@ extern const struct TopicFetchedProperties {
 @interface _Topic (CoreDataGeneratedPrimitiveAccessors)
 
 
-- (NSString*)primitiveBody;
-- (void)setPrimitiveBody:(NSString*)value;
+- (NSNumber*)primitiveBody;
+- (void)setPrimitiveBody:(NSNumber*)value;
+
+- (short)primitiveBodyValue;
+- (void)setPrimitiveBodyValue:(short)value_;
 
 
 
 
 - (NSString*)primitiveTitle;
 - (void)setPrimitiveTitle:(NSString*)value;
+
+
+
+
+- (NSNumber*)primitiveTopicID;
+- (void)setPrimitiveTopicID:(NSNumber*)value;
+
+- (short)primitiveTopicIDValue;
+- (void)setPrimitiveTopicIDValue:(short)value_;
 
 
 

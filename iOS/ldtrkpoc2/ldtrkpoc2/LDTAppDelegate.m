@@ -7,6 +7,9 @@
 //
 
 #import "LDTAppDelegate.h"
+#import "MyModelEntities.h"
+#import <RestKit/RestKit.h>
+#import <RestKit/CoreData.h>
 
 @interface LDTAppDelegate (Private)
 - (void)setupRestKit;
@@ -23,6 +26,7 @@
 {
     // Override point for customization after application launch.
     NSLog(@"got here");
+    [self setupRestKit];
     return YES;
 }
 							
@@ -89,6 +93,131 @@
 - (void)setupRestKit {
     
     //TODO: Add Restkit
+    
+    RKClient *client = [RKClient clientWithBaseURL:LDTHOSTNAME];
+    RKLogConfigureByName("RestKit/Network", RKLogLevelDebug);
+    RKLogInfo(@"Configured RestKit Client: %@", client);
+    // Enable automatic network activity indicator management
+    client.requestQueue.showsNetworkActivityIndicatorWhenBusy = YES;
+    
+    //Setup Restkit Mappings
+    RKObjectManager* objectManager = [RKObjectManager objectManagerWithBaseURL:LDTHOSTNAME];
+    
+    // Enable automatic network activity indicator management
+    objectManager.client.requestQueue.showsNetworkActivityIndicatorWhenBusy = YES;
+    
+    objectManager.acceptMIMEType = RKMIMETypeJSON; 
+    objectManager.serializationMIMEType = RKMIMETypeJSON;
+    
+    NSString *seedDatabaseName = nil;
+    NSString *databaseName = @"ldtrkpoc2.sqlite";
+    objectManager.objectStore = [RKManagedObjectStore objectStoreWithStoreFilename:databaseName usingSeedDatabaseName:seedDatabaseName managedObjectModel:nil delegate:self];
+    
+#pragma Reskit Mappings
+    
+    //RKManagedObjectMapping	*topicMapping	= [RKObjectMapping mappingForClass:[Topic class]];
+    RKManagedObjectMapping	*topicMapping	= [RKManagedObjectMapping mappingForEntityWithName:@"Topic"];
+    RKManagedObjectMapping	*postMapping	= [RKManagedObjectMapping mappingForEntityWithName:@"Post"];
+    RKManagedObjectMapping	*authorMapping	= [RKManagedObjectMapping mappingForEntityWithName:@"Author"];
+    
+#pragma Restkit Topic Setup    
+    [topicMapping mapKeyPathsToAttributes:@"id", @"topicID",
+     @"title", @"title",
+     @"body", @"body",
+     nil];
+    [topicMapping setPrimaryKeyAttribute:@"topicID"];
+    //topicMapping.primaryKeyAttribute = @"topicID";
+    [topicMapping mapRelationship:@"topic" withMapping:topicMapping];
+    [topicMapping mapRelationship:@"post" withMapping:postMapping];
+    
+    // On a Topic the forKeyPath must be @"" rather then @"/topics"
+    [objectManager.mappingProvider setMapping:topicMapping forKeyPath:@"topics"];
+//    
+//    // Configure the Serialization mapping for a Widget. Without this a PostObject will fail
+//    // This post was helpful: https://groups.google.com/group/restkit/browse_frm/thread/959b6e30c86d257f/e0bc0a37b46c18a5?lnk=gst&q=You+must+provide+a+serialization+mapping+for+objects+of+type#e0bc0a37b46c18a5
+//    RKObjectMapping *topicSerializationMapping = [RKObjectMapping 
+//                                                   mappingForClass:[Topic class]]; 
+//    [topicSerializationMapping mapKeyPath:@"id" 
+//                               toAttribute:@"id"]; 
+//    [topicSerializationMapping mapKeyPath:@"title" 
+//                               toAttribute:@"title"]; 
+//    [topicSerializationMapping mapKeyPath:@"body" 
+//                               toAttribute:@"body"]; 
+//    
+//    [objectManager.mappingProvider 
+//     setSerializationMapping:topicSerializationMapping forClass:[Topic class]];
+//
+//    // Configure a default resource path for Topics. 
+//    // Will send GET, PUT, and DELETE requests to '/topics/XXXX'
+//    // id is a property on the Topic class
+//    [objectManager.router routeClass:[Topic class] toResourcePath:@"/topics/:id"];
+//    
+//    // Send POST requests for instances of Topic to '/topics'
+//    [objectManager.router routeClass:[Topic class] toResourcePath:@"/topics" forMethod:RKRequestMethodPOST];
+    
+    
+#pragma Reskit Post Setup
+    [postMapping mapKeyPathsToAttributes:@"id", @"postID",
+     @"title", @"title",
+     @"body", @"body",
+     @"topic_id", @"topicId",
+     @"author_id", @"authorId",
+     nil];
+    postMapping.primaryKeyAttribute = @"postID";
+    //[postMapping mapKeyPath:@"user_id" toAttribute:@"userId"];
+    //#[postMapping mapKeyPath:@"topic_id" toAttribute:@"topicId"];
+    
+    [postMapping mapRelationship:@"post" withMapping:postMapping];
+    [postMapping mapRelationship:@"topic" withMapping:topicMapping];
+    [postMapping mapRelationship:@"author" withMapping:authorMapping];
+    
+    [objectManager.mappingProvider setMapping:postMapping forKeyPath:@"posts"];
+    
+//    RKObjectMapping *postSerializationMapping = [RKObjectMapping 
+//                                                  mappingForClass:[Topic class]]; 
+//    [postSerializationMapping mapKeyPath:@"id" 
+//                              toAttribute:@"id"]; 
+//    [postSerializationMapping mapKeyPath:@"title" 
+//                              toAttribute:@"title"]; 
+//    [postSerializationMapping mapKeyPath:@"body" 
+//                              toAttribute:@"body"];
+//    [postSerializationMapping mapKeyPath:@"topic_id" 
+//                             toAttribute:@"topicId"]; 
+//    [postSerializationMapping mapKeyPath:@"user_id" 
+//                             toAttribute:@"userId"]; 
+//    
+//    [objectManager.mappingProvider 
+//     setSerializationMapping:postSerializationMapping forClass:[Topic class]];
+//
+//    [objectManager.router routeClass:[Post class] toResourcePath:@"/posts/:id"];
+//
+//    [objectManager.router routeClass:[Post class] toResourcePath:@"/posts" forMethod:RKRequestMethodPOST];
+    
+#pragma Reskit Author Setup
+    [authorMapping mapKeyPathsToAttributes:@"id", @"authorID",
+     @"email", @"email",
+     @"username", @"body",
+     nil];
+    authorMapping.primaryKeyAttribute = @"authorID";
+    [authorMapping mapRelationship:@"author" withMapping:authorMapping];
+    
+    [objectManager.mappingProvider setMapping:authorMapping forKeyPath:@"authors"];
+    
+//    RKObjectMapping *authorSerializationMapping = [RKObjectMapping 
+//                                                 mappingForClass:[Topic class]]; 
+//    [authorSerializationMapping mapKeyPath:@"id" 
+//                             toAttribute:@"id"]; 
+//    [authorSerializationMapping mapKeyPath:@"email" 
+//                             toAttribute:@"email"]; 
+//    [authorSerializationMapping mapKeyPath:@"userName" 
+//                             toAttribute:@"username"];
+//    
+//    [objectManager.mappingProvider 
+//     setSerializationMapping:authorSerializationMapping forClass:[Author class]];
+//    
+//    [objectManager.router routeClass:[Author class] toResourcePath:@"/authors/:id"];
+//    
+//    [objectManager.router routeClass:[Author class] toResourcePath:@"/authors" forMethod:RKRequestMethodPOST];
 }
 
 #pragma mark - Core Data stack

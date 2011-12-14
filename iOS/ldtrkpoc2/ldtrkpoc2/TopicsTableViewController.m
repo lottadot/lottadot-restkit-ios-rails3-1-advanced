@@ -10,6 +10,7 @@
 #import <CoreData/CoreData.h>
 #import "CoreDataTableViewController.h"
 #import "MyModelEntities.h"
+#import <RestKit/RestKit.h>
 
 @interface TopicsTableViewController (Private)
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -40,13 +41,13 @@
     // e.g. self.myOutlet = nil;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     if (nil == self.fetchedResultsController) {
         [self setupFetchedResultsController];
     }
+    [self fetchTopicDataFromRemote];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -90,8 +91,9 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {   
     //TODO
-    //Topic *topic = (Topic *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-	cell.textLabel.text = @"something"; // [[aPost objectAtIndex:indexPath.row] title];
+    Topic *topic = (Topic *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+	//cell.textLabel.text = @"something"; // [[aPost objectAtIndex:indexPath.row] title];
+    cell.textLabel.text = [topic title];
 }
 
 
@@ -119,12 +121,41 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+    //NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
     // TODO
 }
 
 - (void)fetchTopicDataFromRemote {
-    // TODO
+    // Load the object model via RestKit	
+    RKObjectManager* objectManager = [RKObjectManager sharedManager];
+    [objectManager loadObjectsAtResourcePath:@"/topics" delegate:self 
+                                       block:^(RKObjectLoader* loader) {
+        // The backend returns topics as a naked array in JSON, so we instruct the loader
+        // to user the appropriate object mapping
+        loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[Topic class]];
+    }];
 }
+
+#pragma mark RKObjectLoaderDelegate methods
+
+- (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjects:(NSArray*)objects {
+	[[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"LastUpdatedAt"];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+	NSLog(@"Loaded topics: %@", objects);
+	//[self loadObjectsFromDataStore];
+    [self performFetch];
+	[self.tableView reloadData];
+}
+
+- (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {
+	UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Error" 
+                                                     message:[error localizedDescription] 
+                                                    delegate:nil 
+                                          cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    
+	[alert show];
+	NSLog(@"Hit error: %@", error);
+}
+
 
 @end
