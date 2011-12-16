@@ -42,10 +42,6 @@ const struct TopicFetchedProperties TopicFetchedProperties = {
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
-	if ([key isEqualToString:@"bodyValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"body"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-	}
 	if ([key isEqualToString:@"topicIDValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"topicID"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -59,25 +55,6 @@ const struct TopicFetchedProperties TopicFetchedProperties = {
 
 @dynamic body;
 
-
-
-- (short)bodyValue {
-	NSNumber *result = [self body];
-	return [result shortValue];
-}
-
-- (void)setBodyValue:(short)value_ {
-	[self setBody:[NSNumber numberWithShort:value_]];
-}
-
-- (short)primitiveBodyValue {
-	NSNumber *result = [self primitiveBody];
-	return [result shortValue];
-}
-
-- (void)setPrimitiveBodyValue:(short)value_ {
-	[self setPrimitiveBody:[NSNumber numberWithShort:value_]];
-}
 
 
 

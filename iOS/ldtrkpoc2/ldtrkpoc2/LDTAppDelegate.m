@@ -25,7 +25,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    NSLog(@"got here");
     [self setupRestKit];
     return YES;
 }
@@ -90,10 +89,11 @@
 
 #pragma mark - Restkit Stack
 
-- (void)setupRestKit {
-    
-    //TODO: Add Restkit
-    
+/* 
+ Setup Restkit with debug-logging to the console so we can see what's going on 
+ */
+
+- (void)setupRestKit {   
     RKClient *client = [RKClient clientWithBaseURL:LDTHOSTNAME];
     RKLogConfigureByName("RestKit/Network", RKLogLevelDebug);
     RKLogInfo(@"Configured RestKit Client: %@", client);
@@ -116,7 +116,10 @@
     
     NSString *seedDatabaseName = nil;
     NSString *databaseName = @"ldtrkpoc2.sqlite";
-    objectManager.objectStore = [RKManagedObjectStore objectStoreWithStoreFilename:databaseName usingSeedDatabaseName:seedDatabaseName managedObjectModel:nil delegate:self];
+    objectManager.objectStore = [RKManagedObjectStore objectStoreWithStoreFilename:databaseName 
+                                                             usingSeedDatabaseName:seedDatabaseName 
+                                                                managedObjectModel:nil 
+                                                                          delegate:self];
     
 #pragma Reskit Mappings
     
@@ -137,28 +140,28 @@
     
     // On a Topic the forKeyPath must be @"" rather then @"/topics"
     [objectManager.mappingProvider setMapping:topicMapping forKeyPath:@"topics"];
-//    
-//    // Configure the Serialization mapping for a Widget. Without this a PostObject will fail
-//    // This post was helpful: https://groups.google.com/group/restkit/browse_frm/thread/959b6e30c86d257f/e0bc0a37b46c18a5?lnk=gst&q=You+must+provide+a+serialization+mapping+for+objects+of+type#e0bc0a37b46c18a5
-//    RKObjectMapping *topicSerializationMapping = [RKObjectMapping 
-//                                                   mappingForClass:[Topic class]]; 
-//    [topicSerializationMapping mapKeyPath:@"id" 
-//                               toAttribute:@"id"]; 
-//    [topicSerializationMapping mapKeyPath:@"title" 
-//                               toAttribute:@"title"]; 
-//    [topicSerializationMapping mapKeyPath:@"body" 
-//                               toAttribute:@"body"]; 
-//    
-//    [objectManager.mappingProvider 
-//     setSerializationMapping:topicSerializationMapping forClass:[Topic class]];
-//
-//    // Configure a default resource path for Topics. 
-//    // Will send GET, PUT, and DELETE requests to '/topics/XXXX'
-//    // id is a property on the Topic class
-//    [objectManager.router routeClass:[Topic class] toResourcePath:@"/topics/:id"];
-//    
-//    // Send POST requests for instances of Topic to '/topics'
-//    [objectManager.router routeClass:[Topic class] toResourcePath:@"/topics" forMethod:RKRequestMethodPOST];
+    
+    // Configure the Serialization mapping for a Widget. Without this a PostObject will fail
+    // This post was helpful: https://groups.google.com/group/restkit/browse_frm/thread/959b6e30c86d257f/e0bc0a37b46c18a5?lnk=gst&q=You+must+provide+a+serialization+mapping+for+objects+of+type#e0bc0a37b46c18a5
+    RKObjectMapping *topicSerializationMapping = [RKObjectMapping 
+                                                   mappingForClass:[Topic class]]; 
+    [topicSerializationMapping mapKeyPath:@"topicID" 
+                               toAttribute:@"id"]; 
+    [topicSerializationMapping mapKeyPath:@"title" 
+                               toAttribute:@"title"]; 
+    [topicSerializationMapping mapKeyPath:@"body" 
+                               toAttribute:@"body"]; 
+    
+    [objectManager.mappingProvider 
+     setSerializationMapping:topicSerializationMapping forClass:[Topic class]];
+
+    // Configure a default resource path for Topics. 
+    // Will send GET, PUT, and DELETE requests to '/topics/XXXX'
+    // id is a property on the Topic class
+    [objectManager.router routeClass:[Topic class] toResourcePath:@"/topics/:topicID"];
+    
+    // Send POST requests for instances of Topic to '/topics'
+    [objectManager.router routeClass:[Topic class] toResourcePath:@"/topics" forMethod:RKRequestMethodPOST];
     
     
 #pragma Reskit Post Setup
@@ -180,7 +183,7 @@
     
     RKObjectMapping *postSerializationMapping = [RKObjectMapping 
                                                   mappingForClass:[Topic class]]; 
-    [postSerializationMapping mapKeyPath:@"id" 
+    [postSerializationMapping mapKeyPath:@"postID" 
                               toAttribute:@"id"]; 
     [postSerializationMapping mapKeyPath:@"title" 
                               toAttribute:@"title"]; 
@@ -194,10 +197,11 @@
     [objectManager.mappingProvider 
      setSerializationMapping:postSerializationMapping forClass:[Post class]];
 
-    [objectManager.router routeClass:[Post class] toResourcePath:@"/posts/:id"];
+    [objectManager.router routeClass:[Post class] toResourcePath:@"/posts/:postID"];
 
     [objectManager.router routeClass:[Post class] toResourcePath:@"/posts" forMethod:RKRequestMethodPOST];
     
+    //TODO: Evaluate using :'s in routes
     // :list.listID/tasks/:taskID
     // [objectManager.router routeClass:[Post class] toResourcePath:@"/topics/:topic.topicID/posts/:postID"];
     
@@ -214,7 +218,7 @@
     
     RKObjectMapping *authorSerializationMapping = [RKObjectMapping 
                                                  mappingForClass:[Author class]]; 
-    [authorSerializationMapping mapKeyPath:@"id" 
+    [authorSerializationMapping mapKeyPath:@"authorID" 
                              toAttribute:@"id"]; 
     [authorSerializationMapping mapKeyPath:@"email" 
                              toAttribute:@"email"]; 
@@ -223,10 +227,10 @@
     
     [objectManager.mappingProvider 
      setSerializationMapping:authorSerializationMapping forClass:[Author class]];
-//    
-//    [objectManager.router routeClass:[Author class] toResourcePath:@"/authors/:id"];
-//    
-//    [objectManager.router routeClass:[Author class] toResourcePath:@"/authors" forMethod:RKRequestMethodPOST];
+   
+    [objectManager.router routeClass:[Author class] toResourcePath:@"/authors/:authorID"];
+    
+    [objectManager.router routeClass:[Author class] toResourcePath:@"/authors" forMethod:RKRequestMethodPOST];
 }
 
 #pragma mark - Core Data stack

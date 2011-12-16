@@ -35,12 +35,8 @@ extern const struct TopicFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSNumber *body;
+@property (nonatomic, strong) NSString *body;
 
-
-@property short bodyValue;
-- (short)bodyValue;
-- (void)setBodyValue:(short)value_;
 
 //- (BOOL)validateBody:(id*)value_ error:(NSError**)error_;
 
@@ -89,11 +85,8 @@ extern const struct TopicFetchedProperties {
 @interface _Topic (CoreDataGeneratedPrimitiveAccessors)
 
 
-- (NSNumber*)primitiveBody;
-- (void)setPrimitiveBody:(NSNumber*)value;
-
-- (short)primitiveBodyValue;
-- (void)setPrimitiveBodyValue:(short)value_;
+- (NSString*)primitiveBody;
+- (void)setPrimitiveBody:(NSString*)value;
 
 
 

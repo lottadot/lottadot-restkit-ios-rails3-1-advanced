@@ -16,4 +16,6 @@
     
 }
 
+- (void)finishedEditing:(Topic *)aTopic;
+
 @end

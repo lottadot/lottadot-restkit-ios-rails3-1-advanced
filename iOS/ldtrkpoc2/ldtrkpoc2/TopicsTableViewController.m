@@ -3,7 +3,7 @@
 //  ldtrkpoc2
 //
 //  Created by Shane Zatezalo on 12/8/11.
-//  Copyright (c) 2011 Personal. All rights reserved.
+//  Copyright (c) 2011 Lottadot LLC All rights reserved.
 //
 
 #import "TopicsTableViewController.h"
@@ -11,6 +11,7 @@
 #import "CoreDataTableViewController.h"
 #import "MyModelEntities.h"
 #import <RestKit/RestKit.h>
+#import "TopicEditorViewController.h"
 
 @interface TopicsTableViewController (Private)
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -177,6 +178,29 @@
         // use performSelector:withObject: to send without compiler checking
         // (which is acceptable here because we used introspection to be sure this is okay)
         [segue.destinationViewController performSelector:@selector(setTopic:) withObject:clicked];
+    } else if ([@"addTopic" isEqualToString:segue.identifier]) {
+        /*
+         the segue’s destinationViewController is not the editor view controller, but rather a navigation controller
+         */
+        Topic *newTopic = nil;
+        newTopic = [NSEntityDescription 
+                  insertNewObjectForEntityForName:@"Topic" 
+                  inManagedObjectContext:self.fetchedResultsController.managedObjectContext]; 
+        [newTopic setTitle:@"title text"];
+        [newTopic setBody:@"body text"];
+
+        UIViewController *topVC = [[segue destinationViewController] topViewController];
+        TopicEditorViewController *editor = (TopicEditorViewController *)topVC;
+        editor.topic = newTopic;  
+    }
+}
+
+#pragma mark Actions
+
+// back from the editting controller
+- (void)finishedEditing:(Topic *)aTopic {
+    if (nil != aTopic) {
+        //TODO Send to the new Topic to Backend via RestKit. On success then [self.tableView reloadData];
     }
 }
 

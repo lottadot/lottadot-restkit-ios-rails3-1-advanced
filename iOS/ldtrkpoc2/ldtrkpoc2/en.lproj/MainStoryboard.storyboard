@@ -5,6 +5,66 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="933"/>
     </dependencies>
     <scenes>
+        <scene sceneID="Bil-6K-NCo">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jxP-iZ-sHd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController title="Topic Editor View Controller" id="T9i-oU-56b" customClass="TopicEditorViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bE8-Bj-RWT">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Title:" lineBreakMode="tailTruncation" minimumFontSize="10" id="U02-R6-xA3">
+                                <rect key="frame" x="20" y="65" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Body:" lineBreakMode="tailTruncation" minimumFontSize="10" id="eEv-4A-fMO">
+                                <rect key="frame" x="20" y="106" width="45" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="lSh-J1-Di8">
+                                <rect key="frame" x="79" y="65" width="221" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="T9i-oU-56b" id="Eal-fI-AkI"/>
+                                </connections>
+                            </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="xXH-s1-sPC">
+                                <rect key="frame" x="79" y="106" width="221" height="281"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="T9i-oU-56b" id="K74-9Z-LiH"/>
+                                </connections>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="8Pe-e9-wdm">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="0Rq-28-HIQ">
+                            <connections>
+                                <action selector="done:" destination="T9i-oU-56b" id="NCf-Ve-00j"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="bodyText" destination="xXH-s1-sPC" id="sKB-b0-kXu"/>
+                        <outlet property="titleField" destination="lSh-J1-Di8" id="T2U-lm-Wjg"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1296" y="-624"/>
+        </scene>
         <scene sceneID="5">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
@@ -48,7 +108,13 @@
                             <outlet property="delegate" destination="2" id="tae-uZ-vjk"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Topics" id="CUa-q4-4W6"/>
+                    <navigationItem key="navigationItem" title="Topics" id="CUa-q4-4W6">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="2Hg-dX-ULT">
+                            <connections>
+                                <segue destination="T9i-oU-56b" kind="push" identifier="addTopic" id="aWf-d4-7Wa"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="view" destination="f4K-Kx-DAQ" id="jhX-dc-Lhj"/>
                     </connections>
@@ -172,6 +238,14 @@
         </class>
         <class className="PostsTableViewController" superclassName="CoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PostsTableViewController.h"/>
+        </class>
+        <class className="TopicEditorViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TopicEditorViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="done:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="bodyText" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="titleField" candidateClass="UITextField"/>
+            </relationships>
         </class>
         <class className="TopicsTableViewController" superclassName="CoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TopicsTableViewController.h"/>
