@@ -198,6 +198,9 @@
 
     [objectManager.router routeClass:[Post class] toResourcePath:@"/posts" forMethod:RKRequestMethodPOST];
     
+    // :list.listID/tasks/:taskID
+    // [objectManager.router routeClass:[Post class] toResourcePath:@"/topics/:topic.topicID/posts/:postID"];
+    
 #pragma Reskit Author Setup
     [authorMapping mapKeyPathsToAttributes:@"id", @"authorID",
      @"email", @"email",
