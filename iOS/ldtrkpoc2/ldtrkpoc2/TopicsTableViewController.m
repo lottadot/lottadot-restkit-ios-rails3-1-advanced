@@ -100,10 +100,21 @@
 #pragma mark -
 #pragma mark Fetched results controller
 
+/*
+ Described by: Panupan Sriautharawong <panupan@willinteractive.com>
+ Restkit keeps one managed object context (MOC) per thread. Since
+ remoting is asynchronous, the calls and work occur on a separate
+ thread, and when the response comes back, Restkit does the work in a
+ MOC on that thread. Don't worry though, Restkit merges these changes
+ back to the main MOC for you automatically. Bottom line is, your
+ application should use the main MOC retrievable at: [[RKObjectManager
+ sharedManager].objectStore managedObjectContext].
+*/
+
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
     if (nil == self.fetchedResultsController) {       
-        NSManagedObjectContext *managedObjectContext = [ApplicationDelegate managedObjectContext];
+        //NSManagedObjectContext *managedObjectContext = [ApplicationDelegate managedObjectContext];
 
         
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Topic"];
@@ -111,7 +122,9 @@
         // no predicate because we want ALL the Topics
         
         self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
-                                                                            managedObjectContext:managedObjectContext
+                                                                            //managedObjectContext:managedObjectContext
+                                                                            managedObjectContext: [[RKObjectManager
+                                                                                                    sharedManager].objectStore managedObjectContext]
                                                                               sectionNameKeyPath:nil
                                                                                        cacheName:nil];
             
