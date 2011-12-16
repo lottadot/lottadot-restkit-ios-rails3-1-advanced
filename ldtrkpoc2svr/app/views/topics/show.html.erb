@@ -13,3 +13,12 @@
 
 <%= link_to 'Edit', edit_topic_path(@topic) %> |
 <%= link_to 'Back', topics_path %>
+
+<% if @topic.posts != nil  && @topic.posts.size > 0 %>
+	<h4>Posts</h4>
+	<ul>
+	<% @topic.posts.each do |post| %>
+		<li><%= link_to post.topic.title, post_path(post.topic) %></li>
+	<% end %>
+	</ul>
+<% end %>
