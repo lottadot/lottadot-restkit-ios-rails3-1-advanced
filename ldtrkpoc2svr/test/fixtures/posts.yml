@@ -3,11 +3,12 @@
 one:
   title: MyString
   body: MyString
-  topic: 
-  author: 
+  topic: one
+  author: one
 
 two:
   title: MyString
   body: MyString
-  topic: 
-  author: 
+  topic: two
+  author: two
+ 
