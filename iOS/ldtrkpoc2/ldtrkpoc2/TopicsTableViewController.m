@@ -201,6 +201,7 @@
 - (void)finishedEditing:(Topic *)aTopic {
     if (nil != aTopic) {
         //TODO Send to the new Topic to Backend via RestKit. On success then [self.tableView reloadData];
+        [self.navigation
     }
 }
 

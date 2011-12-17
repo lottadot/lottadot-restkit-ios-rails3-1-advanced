@@ -138,6 +138,12 @@
     [topicMapping mapRelationship:@"topic" withMapping:topicMapping];
     [topicMapping mapRelationship:@"post" withMapping:postMapping];
     
+    //TODO: evaluate declaring the relationships like this
+    // [albumMapping mapKeyPath:@"presentations" toRelationship:@"presentations" withMapping:presentationMapping];
+    // so we might try
+    // [topicMapping mapKeyPath:@"posts" toRelationship:@"posts" withMapping:postMapping];
+    // [postMapping mapKeyPath:@"author" toRelationship:@"author" withMapping:authorMapping];
+    
     // On a Topic the forKeyPath must be @"" rather then @"/topics"
     [objectManager.mappingProvider setMapping:topicMapping forKeyPath:@"topics"];
     
