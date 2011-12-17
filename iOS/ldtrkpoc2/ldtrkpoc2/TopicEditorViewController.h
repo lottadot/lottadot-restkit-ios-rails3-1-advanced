@@ -8,13 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@class Topic;
+@class Topic, TopicsTableViewController;
 
 @interface TopicEditorViewController : UIViewController <UITextFieldDelegate>
 
 @property (nonatomic, strong) Topic *topic;
 @property (nonatomic, strong) IBOutlet UITextField *titleField;
 @property (nonatomic, strong) IBOutlet UITextView *bodyText;
+@property (nonatomic, weak) TopicsTableViewController *topicsViewController;
 
 - (IBAction)done:(UIBarButtonItem *)sender;
 

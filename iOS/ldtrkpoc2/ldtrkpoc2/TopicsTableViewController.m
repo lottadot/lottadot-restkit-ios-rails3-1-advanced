@@ -144,6 +144,7 @@
     }];
 }
 
+#pragma mark -
 #pragma mark RKObjectLoaderDelegate methods
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjects:(NSArray*)objects {
@@ -174,35 +175,39 @@
     Topic *clicked = [self.fetchedResultsController objectAtIndexPath:indexPath];
     // be somewhat generic here (slightly advanced usage)
     // we'll segue to ANY view controller that has a photographer @property
-    if ([segue.destinationViewController respondsToSelector:@selector(setTopic:)]) {
-        // use performSelector:withObject: to send without compiler checking
-        // (which is acceptable here because we used introspection to be sure this is okay)
-        [segue.destinationViewController performSelector:@selector(setTopic:) withObject:clicked];
-    } else if ([@"addTopic" isEqualToString:segue.identifier]) {
+    if ([@"addTopic" isEqualToString:segue.identifier]) {
         /*
          the segue’s destinationViewController is not the editor view controller, but rather a navigation controller
          */
         Topic *newTopic = nil;
-        newTopic = [NSEntityDescription 
+        newTopic = (Topic *)[NSEntityDescription 
                   insertNewObjectForEntityForName:@"Topic" 
-                  inManagedObjectContext:self.fetchedResultsController.managedObjectContext]; 
+                  inManagedObjectContext:self.fetchedResultsController.managedObjectContext];
+ 
         [newTopic setTitle:@"title text"];
         [newTopic setBody:@"body text"];
 
         UIViewController *topVC = [[segue destinationViewController] topViewController];
         TopicEditorViewController *editor = (TopicEditorViewController *)topVC;
-        editor.topic = newTopic;  
-    }
+        editor.topic = newTopic;
+        editor.topicsViewController = self;
+    } else if ([segue.destinationViewController respondsToSelector:@selector(setTopic:)]) {
+        // use performSelector:withObject: to send without compiler checking
+        // (which is acceptable here because we used introspection to be sure this is okay)
+        [segue.destinationViewController performSelector:@selector(setTopic:) withObject:clicked];
+    } 
 }
 
 #pragma mark Actions
 
 // back from the editting controller
+// strong coupling bad. lazy wins the day.
 - (void)finishedEditing:(Topic *)aTopic {
     if (nil != aTopic) {
-        //TODO Send to the new Topic to Backend via RestKit. On success then [self.tableView reloadData];
-        [self.navigation
+        [ [RKObjectManager sharedManager] postObject:aTopic delegate:self];
     }
+
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end

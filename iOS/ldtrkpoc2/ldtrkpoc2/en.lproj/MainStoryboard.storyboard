@@ -39,7 +39,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="xXH-s1-sPC">
                                 <rect key="frame" x="79" y="106" width="221" height="281"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.6549019814" green="0.66274511810000003" blue="0.67450982329999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -63,7 +63,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1296" y="-624"/>
+            <point key="canvasLocation" x="1822" y="-624"/>
         </scene>
         <scene sceneID="5">
             <objects>
@@ -111,7 +111,7 @@
                     <navigationItem key="navigationItem" title="Topics" id="CUa-q4-4W6">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="2Hg-dX-ULT">
                             <connections>
-                                <segue destination="T9i-oU-56b" kind="push" identifier="addTopic" id="aWf-d4-7Wa"/>
+                                <segue destination="eTz-Dy-0Rs" kind="modal" identifier="addTopic" id="lYo-s2-6QL"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -227,6 +227,23 @@
                 </navigationController>
             </objects>
             <point key="canvasLocation" x="229" y="59"/>
+        </scene>
+        <scene sceneID="HVc-Dr-8Su">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NHb-nl-Gng" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="eTz-Dy-0Rs" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="6W3-8t-RDg">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="T9i-oU-56b" kind="relationship" relationship="rootViewController" id="0bH-TU-Qim"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="1296" y="-624"/>
         </scene>
     </scenes>
     <classes>

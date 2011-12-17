@@ -8,10 +8,11 @@
 
 #import "TopicEditorViewController.h"
 #import "MyModelEntities.h"
+#import "TopicsTableViewController.h"
 
 @implementation TopicEditorViewController
 
-@synthesize topic, titleField, bodyText;
+@synthesize topic, titleField, bodyText, topicsViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -65,18 +66,19 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField { 
-    self.topic.title = textField.text;
+    self.topic.title = self.titleField.text;
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView { 
-    self.topic.body = textView.text;
+    self.topic.body = self.bodyText.text;
 }
 
 #pragma mark - Actions
 
 - (IBAction)done:(UIBarButtonItem *)sender {
-    //TODO save the topic or notify the prior controller that the topic needs saved.
-    //then pop the navcontroller back and reload the table data
+    self.topic.title = self.titleField.text;
+    self.topic.body = self.bodyText.text;
+    [self.topicsViewController finishedEditing:self.topic];
 }
 
 @end

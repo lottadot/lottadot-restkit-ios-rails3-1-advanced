@@ -145,7 +145,7 @@
     // [postMapping mapKeyPath:@"author" toRelationship:@"author" withMapping:authorMapping];
     
     // On a Topic the forKeyPath must be @"" rather then @"/topics"
-    [objectManager.mappingProvider setMapping:topicMapping forKeyPath:@"topics"];
+    [objectManager.mappingProvider setMapping:topicMapping forKeyPath:@""];
     
     // Configure the Serialization mapping for a Widget. Without this a PostObject will fail
     // This post was helpful: https://groups.google.com/group/restkit/browse_frm/thread/959b6e30c86d257f/e0bc0a37b46c18a5?lnk=gst&q=You+must+provide+a+serialization+mapping+for+objects+of+type#e0bc0a37b46c18a5
@@ -163,12 +163,13 @@
 
     // Configure a default resource path for Topics. 
     // Will send GET, PUT, and DELETE requests to '/topics/XXXX'
-    // id is a property on the Topic class
+    // topicID is a property on the Topic class
     [objectManager.router routeClass:[Topic class] toResourcePath:@"/topics/:topicID"];
     
     // Send POST requests for instances of Topic to '/topics'
     [objectManager.router routeClass:[Topic class] toResourcePath:@"/topics" forMethod:RKRequestMethodPOST];
-    
+	[objectManager.router routeClass:[Topic class] toResourcePath:@"/topics/(topicID)" forMethod:RKRequestMethodPUT];
+	[objectManager.router routeClass:[Topic class] toResourcePath:@"/topics/(topicID)" forMethod:RKRequestMethodDELETE];
     
 #pragma Reskit Post Setup
     [postMapping mapKeyPathsToAttributes:@"id", @"postID",
