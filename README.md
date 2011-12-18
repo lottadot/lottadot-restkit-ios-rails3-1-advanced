@@ -10,10 +10,11 @@ The datamodel is inspired by Pierre Martin's questions on the [RestKit Google Gr
 [![](http://dl.dropbox.com/u/212730/lottadot-restkit-ios-rails3-1-advanced_datamodel_diagram.png)](http://dl.dropbox.com/u/212730/lottadot-restkit-ios-rails3-1-advanced_datamodel_diagram.png)
 
 Bascially it is:
-	topics has_many posts
-	post belongs_to a topic
-	post belongs_to an author
-	author has_many posts
+
+* topic has_many posts
+* post belongs_to a topic
+* post belongs_to an author
+* author has_many posts
 
 I used Restkit HEAD.
 
@@ -66,7 +67,7 @@ Forks, patches and other feedback are always welcome. Please for it and submit a
 Credits
 -------------------------
 
-RestKit is brought to you by [Blake Watters](http://twitter.com/blakewatters) and the RestKit team.
-CoreDataTableViewController is brought to you by [Stanford CS193p Fall 2011](http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=480479762)
+* RestKit is brought to you by [Blake Watters](http://twitter.com/blakewatters) and the RestKit team.
+* CoreDataTableViewController is brought to you by [Stanford CS193p Fall 2011](http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=480479762)
 
 
