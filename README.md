@@ -57,7 +57,10 @@ If you press the 'add one' button it should contact the website, create a new To
 ---
 ###TODO
 
-* iOS: add code to let you create a new post
+* iOS: add code to let you cancel an attempt to add a new Topic
+* iOS: re-do the TopicEditor and decouple it.
+* iOS: add code to let you edit/delete a topic (which would cascade to delete it's posts)
+* iOS: add code to let you create/edit/delete a new post
 * website: Login/out of the website (maybe with Devise in the RoR app)
 * iOS: force the user to authenticate, then when creating posts associate the user/"author" with it.
 
