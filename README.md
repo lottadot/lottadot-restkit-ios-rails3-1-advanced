@@ -24,22 +24,24 @@ Installation
 Quick Start (aka TL;DR)
 -----------
 
-(clone the repo)
+(clone the repo):
 
-cd lottadot-restkit-ios-rails3-1-advanced
+* cd lottadot-restkit-ios-rails3-1-advanced
 
-(update the git submodule that points to Restkit)
-git submodule update --init --recursive
+(update the git submodule that points to Restkit):
 
-(start the rails app in a terminal window)
-cd ldtrkpoc2svr
-rvm 1.9.2@rails310
-bundle install
-rake db:migrate
-rake db:seed
-rails s
+* git submodule update --init --recursive
 
-Open a web browser and open [![](http://lvh.me:3000/)](http://lvh.me:3000/)
+(start the rails app in a terminal window):
+
+* cd ldtrkpoc2svr
+* rvm 1.9.2@rails310
+* bundle install
+* rake db:migrate
+* rake db:seed
+* rails s
+
+Open a web browser and open [http://lvh.me:3000/](http://lvh.me:3000/)
 
 Try it out
 =========================
