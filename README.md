@@ -35,7 +35,12 @@ Quick Start (aka TL;DR)
 (start the rails app in a terminal window):
 
 * cd ldtrkpoc2svr
+
+(if you use RVM:)
 * rvm 1.9.2@rails310
+(if you see something like 'report_activate_error' you'll have to do 'gem install rails')
+
+
 * bundle install
 * rake db:migrate
 * rake db:seed
