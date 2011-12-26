@@ -82,7 +82,7 @@
     
 	UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
 	if (nil == cell) {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
 	}
     [self configureCell:cell atIndexPath:indexPath];
 	return cell;
@@ -110,6 +110,12 @@
     Topic *topic = (Topic *)[self.fetchedResultsController objectAtIndexPath:indexPath];
 	//cell.textLabel.text = @"something"; // [[aPost objectAtIndex:indexPath.row] title];
     cell.textLabel.text = [topic title];
+    
+    NSString *subTitle = [topic body];
+    NSRange stringRange = {0, MIN([subTitle length], 40)};
+    // adjust the range to include dependent chars
+    stringRange = [subTitle rangeOfComposedCharacterSequencesForRange:stringRange];
+    cell.detailTextLabel.text = [subTitle substringWithRange:stringRange];
 }
 
 
