@@ -37,9 +37,8 @@ Quick Start (aka TL;DR)
 * cd ldtrkpoc2svr
 
 (if you use RVM:)
-* rvm 1.9.2@rails310
-(if you see something like 'report_activate_error' you'll have to do 'gem install rails')
-
+* rvm use ruby-1.9.2-p290@ldtrkpoc2svr
+(If you see something like 'report_activate_error' you'll have to do 'gem install rails'. If you see something about gemset doesn't exist, then follow rvm's instructions to install the new gemset (ie rvm --create use ruby-1.9.2-p290@ldtrkpoc2svr ), and don't forget to 'gem install rails' when it's finished.)
 
 * bundle install
 * rake db:migrate
