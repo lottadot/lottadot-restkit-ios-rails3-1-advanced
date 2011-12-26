@@ -18,7 +18,7 @@
 	<h4>Posts</h4>
 	<ul>
 	<% @topic.posts.each do |post| %>
-		<li><%= link_to post.topic.title, post_path(post.topic) %></li>
+		<li><%= link_to post.title, post_path(post.topic) %></li>
 	<% end %>
 	</ul>
 <% end %>
