@@ -13,6 +13,7 @@
 		3438DBFC14985BD400EF682F /* AuthorsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3438DBFB14985BD400EF682F /* AuthorsTableViewController.m */; };
 		346D54BC149835BA00D1B4CE /* PostsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 346D54BA149835BA00D1B4CE /* PostsTableViewController.m */; };
 		34A33BE2149AF8C600FEE947 /* TopicEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34A33BE1149AF8C600FEE947 /* TopicEditorViewController.m */; };
+		34BC8E4814A8FEE700EC0683 /* PostEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34BC8E4614A8FEE700EC0683 /* PostEditorViewController.m */; };
 		34C08A741491A2E6001EA6FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C08A731491A2E6001EA6FF /* UIKit.framework */; };
 		34C08A761491A2E6001EA6FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C08A751491A2E6001EA6FF /* Foundation.framework */; };
 		34C08A781491A2E6001EA6FF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C08A771491A2E6001EA6FF /* CoreGraphics.framework */; };
@@ -101,6 +102,8 @@
 		346D54BA149835BA00D1B4CE /* PostsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostsTableViewController.m; sourceTree = "<group>"; };
 		34A33BE0149AF8C600FEE947 /* TopicEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicEditorViewController.h; sourceTree = "<group>"; };
 		34A33BE1149AF8C600FEE947 /* TopicEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicEditorViewController.m; sourceTree = "<group>"; };
+		34BC8E4514A8FEE700EC0683 /* PostEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostEditorViewController.h; sourceTree = "<group>"; };
+		34BC8E4614A8FEE700EC0683 /* PostEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostEditorViewController.m; sourceTree = "<group>"; };
 		34C08A6F1491A2E6001EA6FF /* ldtrkpoc2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ldtrkpoc2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34C08A731491A2E6001EA6FF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		34C08A751491A2E6001EA6FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -227,6 +230,8 @@
 				34A33BE1149AF8C600FEE947 /* TopicEditorViewController.m */,
 				346D54B9149835BA00D1B4CE /* PostsTableViewController.h */,
 				346D54BA149835BA00D1B4CE /* PostsTableViewController.m */,
+				34BC8E4514A8FEE700EC0683 /* PostEditorViewController.h */,
+				34BC8E4614A8FEE700EC0683 /* PostEditorViewController.m */,
 				3438DBFA14985BD400EF682F /* AuthorsTableViewController.h */,
 				3438DBFB14985BD400EF682F /* AuthorsTableViewController.m */,
 				343168AD14924D250090A004 /* MyModelEntities.h */,
@@ -483,6 +488,7 @@
 				3426F4F01498119D00374120 /* Author.m in Sources */,
 				3438DBFC14985BD400EF682F /* AuthorsTableViewController.m in Sources */,
 				34A33BE2149AF8C600FEE947 /* TopicEditorViewController.m in Sources */,
+				34BC8E4814A8FEE700EC0683 /* PostEditorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

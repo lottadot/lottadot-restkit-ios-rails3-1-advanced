@@ -18,4 +18,6 @@
 
 @property (nonatomic, strong) Topic *topic;
 
+- (void)finishedEditing:(Post *)aPost AndCancelled:(BOOL)cancelled;
+
 @end

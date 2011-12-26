@@ -11,11 +11,13 @@
 #import "CoreDataTableViewController.h"
 #import "MyModelEntities.h"
 #import <RestKit/RestKit.h>
+#import "PostEditorViewController.h"
 
 @interface PostsTableViewController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 - (void)setupPostsFetchedResultsController;
 - (void)fetchPostsDataFromRemote;
+- (NSIndexPath *)indexPathForObject:(id)object;
 @end
 
 @implementation PostsTableViewController
@@ -34,6 +36,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    [self fetchPostsDataFromRemote];
 }
 
 - (void)viewDidUnload
@@ -42,7 +45,7 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
     self.debug = YES;
-    [self performFetch];
+    //[self performFetch];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -56,7 +59,7 @@
     //[self performFetch];
     NSLog(@"count:%i",[[self.fetchedResultsController sections] count]);
     //[self.tableView reloadData];
-    [self fetchPostsDataFromRemote];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -96,14 +99,50 @@
 	return cell;
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the managed object for the given index path
+        
+        Post *post = (Post *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+        
+        if ([[post postID] intValue] <1) {
+            // The topic was never synced to the Backend, just delete it from the MOC
+            [[[[RKObjectManager sharedManager] objectStore] managedObjectContext ] deleteObject:post];
+        } else {
+            [[RKObjectManager sharedManager] deleteObject:post delegate:self];
+        }
+	}   
+}
+
+- (NSIndexPath *)indexPathForObject:(id)object {
+    NSIndexPath *returnValue = nil;
+    NSArray *visible = [self.tableView indexPathsForVisibleRows];
+    for (int i=0; i < [visible count]; i++) {
+        NSIndexPath *indexPath = (NSIndexPath*)[visible objectAtIndex:i];
+        //id rowObject = [self.tableView objectAtIndex:indexPath.row];
+        id rowObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        
+        
+        if ([rowObject isEqual:object]) {
+            returnValue = indexPath;
+        }
+    }
+    return returnValue;
+}
+
 #pragma mark - Table Cell 
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {   
     //TODO
     Post *post = [self.fetchedResultsController objectAtIndexPath:indexPath];
 	//cell.textLabel.text = @"something"; // [[aPost objectAtIndex:indexPath.row] title];
-    cell.textLabel.text = [post title];
-    cell.detailTextLabel.text =  [[post author] userName];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ (id:%i)",[post title],[[post postID] intValue]];
+    
+    NSString *subTitle = [[post author] userName];
+    NSRange stringRange = {0, MIN([subTitle length], 40)};
+    // adjust the range to include dependent chars
+    stringRange = [subTitle rangeOfComposedCharacterSequencesForRange:stringRange];
+    cell.detailTextLabel.text = [subTitle substringWithRange:stringRange];
 }
 
 
@@ -142,15 +181,14 @@
                                        }];
 }
 
-#pragma mark RKObjectLoaderDelegate methods
+#pragma mark - RKObjectLoaderDelegate methods
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjects:(NSArray*)objects {
 	[[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"LastUpdatedAt"];
 	[[NSUserDefaults standardUserDefaults] synchronize];
-	NSLog(@"Loaded posts: %@", objects);
+	NSLog(@"objectLoader didLoadObjects: %@", objects);
 	//[self loadObjectsFromDataStore];
-    [self performFetch];
-	//[self.tableView reloadData];
+    //[self performFetch];
 }
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {
@@ -161,6 +199,21 @@
     
 	[alert show];
 	NSLog(@"Hit error: %@", error);
+}
+
+- (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObject:(id)object {
+    if ([object class] == [Post class]) {
+        /* we pushed a Post object to the Server and are notified by RestKit's RKObjectLoader's Delegate Protocol that it was a success.
+         If it was a new object, the new object would have a new ID value, so the table should be updated
+         */
+         //[self.tableView reloadData];
+        NSIndexPath *indexPath = [self indexPathForObject:object];
+        if (indexPath) {
+            [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        }
+
+    }
+   
 }
 
 #pragma mark topic
@@ -179,13 +232,106 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
     Post *clicked = [self.fetchedResultsController objectAtIndexPath:indexPath];
+//    // be somewhat generic here (slightly advanced usage)
+//    // we'll segue to ANY view controller that has a photographer @property
+//    if ([segue.destinationViewController respondsToSelector:@selector(setPost:)]) {
+//        // use performSelector:withObject: to send without compiler checking
+//        // (which is acceptable here because we used introspection to be sure this is okay)
+//        [segue.destinationViewController performSelector:@selector(setPost:) withObject:clicked];
+//    }
     // be somewhat generic here (slightly advanced usage)
     // we'll segue to ANY view controller that has a photographer @property
-    if ([segue.destinationViewController respondsToSelector:@selector(setPost:)]) {
+    if ([@"addPost" isEqualToString:segue.identifier]) {
+        /*
+         the segue’s destinationViewController is not the editor view controller, but rather a navigation controller
+         */
+        Post *newPost = nil;
+        newPost = (Post *)[NSEntityDescription 
+                             insertNewObjectForEntityForName:@"Post" 
+                             inManagedObjectContext:self.fetchedResultsController.managedObjectContext];
+        
+        [newPost setTitle:@"title text"];
+        [newPost setBody:@"body text"];
+        
+        /* TODO: Not sure what I've got to setup at this point. I tried setTopic: (alone, without a setTopicId) and the POST of that 
+         errored with: 
+         *** Terminating app due to uncaught exception 'NSUnknownKeyException', reason: '[<Post 0x6ea4110> valueForUndefinedKey:]: the entity Post is not key value coding-compliant for the key "topic_id".'
+         I think because newPost.topicID = 0 
+         */
+        [newPost setTopic:self.topic];
+        [newPost setTopicID:self.topic.topicID];
+        
+        
+        
+        // TODO: Author Must be defined. OR the UI when editting a Post needs to let the user select an Author
+//        RKObjectManager* objectManager = [RKObjectManager sharedManager];
+//        [objectManager loadObjectsAtResourcePath:@"/authors" delegate:self 
+//                                           block:^(RKObjectLoader* loader) {
+//                                               // The backend returns topics as a naked array in JSON, so we instruct the loader
+//                                               // to user the appropriate object mapping
+//                                               loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[Author class]];
+//                                               // author = [[loader objectAtIndex] lastObject];
+//                                           }];
+//         //[responseLoader.objects lastObject];
+
+        
+  
+        NSFetchRequest *request = [Author fetchRequest];
+        NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"userName" ascending:YES];
+        [request setSortDescriptors:[NSArray arrayWithObject:descriptor]];
+        NSArray *authors = [Author objectsWithFetchRequest:request];
+
+        if (nil != authors && [authors count]) {
+            Author *author = [authors lastObject];
+            [newPost setAuthor:author];
+            [newPost setAuthorID:author.authorID];
+        }
+                  
+        UIViewController *topVC = [[segue destinationViewController] topViewController];
+        PostEditorViewController *editor = (PostEditorViewController *)topVC;
+        editor.post = newPost;
+        editor.postsViewController = self;
+    } else if ([segue.destinationViewController respondsToSelector:@selector(setPost:)]) {
         // use performSelector:withObject: to send without compiler checking
         // (which is acceptable here because we used introspection to be sure this is okay)
         [segue.destinationViewController performSelector:@selector(setPost:) withObject:clicked];
+    } 
+}
+
+#pragma mark Actions
+
+// back from the editting controller
+
+- (void)finishedEditing:(Post *)aPost AndCancelled:(BOOL)cancelled {
+    if (nil != aPost && !cancelled) {
+        //[[RKObjectManager sharedManager] postObject:aPost delegate:self];
+        [[RKObjectManager sharedManager] postObject:aPost delegate:self block:^(RKObjectLoader *loader) { 
+            // Skip the object serializer and provide it yourself 
+            // No reason to try a 
+            //[self.tableView reloadData];
+            // here, we will attempt to reload the row in - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObject:(id)object
+
+                NSIndexPath *indexPath = [self indexPathForObject:aPost];
+                if (indexPath) {
+                    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                }
+
+            
+        }]; 
+        
+    } else if (nil != aPost && cancelled) {
+        if ([[aPost postID] intValue] <1) {
+            // The post was a new post, but it was cancelled. It needs to be deleted out of the MOC
+            // Normally, we would used RestKit's ObjectManager to delete the object. It would contact the remote server and delete it there too.
+            // But doing this for an object that has no remote key (Topic.topicID) will cause Restkit to throw an 
+            // 'Unable to find a routable path for object of type '(null)' for HTTP Method 'DELETE''
+            // so rather then do this
+            //[[RKObjectManager sharedManager] deleteObject:aTopic delegate:self];
+            // we delete it right out of the MOC
+            [[[[RKObjectManager sharedManager] objectStore] managedObjectContext ] deleteObject:aPost];
+        }
     }
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end
