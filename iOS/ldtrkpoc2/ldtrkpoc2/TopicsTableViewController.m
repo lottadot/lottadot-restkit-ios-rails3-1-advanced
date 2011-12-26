@@ -88,6 +88,21 @@
 	return cell;
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the managed object for the given index path
+        
+        Topic *topic = (Topic *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+
+        if ([[topic topicID] intValue] <1) {
+            // The topic was never synced to the Backend, just delete it from the MOC
+            [[[[RKObjectManager sharedManager] objectStore] managedObjectContext ] deleteObject:topic];
+        } else {
+            [[RKObjectManager sharedManager] deleteObject:topic delegate:self];
+        }
+	}   
+}
+
 #pragma mark - Table Cell 
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {   
