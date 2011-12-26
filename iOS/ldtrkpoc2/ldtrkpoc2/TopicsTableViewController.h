@@ -16,6 +16,6 @@
     
 }
 
-- (void)finishedEditing:(Topic *)aTopic;
+- (void)finishedEditing:(Topic *)aTopic AndCancelled:(BOOL)cancelled;
 
 @end

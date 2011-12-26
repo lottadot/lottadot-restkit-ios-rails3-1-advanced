@@ -201,12 +201,22 @@
 #pragma mark Actions
 
 // back from the editting controller
-// strong coupling bad. lazy wins the day.
-- (void)finishedEditing:(Topic *)aTopic {
-    if (nil != aTopic) {
-        [ [RKObjectManager sharedManager] postObject:aTopic delegate:self];
-    }
 
+- (void)finishedEditing:(Topic *)aTopic AndCancelled:(BOOL)cancelled {
+    if (nil != aTopic && !cancelled) {
+        [ [RKObjectManager sharedManager] postObject:aTopic delegate:self];
+    } else if (nil != aTopic && cancelled) {
+        if ([[aTopic topicID] intValue] <1) {
+            // The topic was a new topic, but it was cancelled. It needs to be deleted out of the MOC
+            // Normally, we would used RestKit's ObjectManager to delete the object. It would contact the remote server and delete it there too.
+            // But doing this for an object that has no remote key (Topic.topicID) will cause Restkit to throw an 
+            // 'Unable to find a routable path for object of type '(null)' for HTTP Method 'DELETE''
+            // so rather then do this
+            //[[RKObjectManager sharedManager] deleteObject:aTopic delegate:self];
+            // we delete it right out of the MOC
+            [[[[RKObjectManager sharedManager] objectStore] managedObjectContext ] deleteObject:aTopic];
+        }
+    }
     [self dismissModalViewControllerAnimated:YES];
 }
 

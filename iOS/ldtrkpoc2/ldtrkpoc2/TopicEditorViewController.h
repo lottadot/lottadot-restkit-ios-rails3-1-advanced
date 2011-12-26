@@ -18,5 +18,6 @@
 @property (nonatomic, weak) TopicsTableViewController *topicsViewController;
 
 - (IBAction)done:(UIBarButtonItem *)sender;
+- (IBAction)cancel:(UIBarButtonItem *)sender;
 
 @end

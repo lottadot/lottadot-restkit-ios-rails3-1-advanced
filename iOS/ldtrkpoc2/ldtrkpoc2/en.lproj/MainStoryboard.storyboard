@@ -51,6 +51,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="8Pe-e9-wdm">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="I1R-SP-MFA">
+                            <connections>
+                                <action selector="cancel:" destination="T9i-oU-56b" id="frw-SU-cyE"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="0Rq-28-HIQ">
                             <connections>
                                 <action selector="done:" destination="T9i-oU-56b" id="NCf-Ve-00j"/>
@@ -259,6 +264,7 @@
         <class className="TopicEditorViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TopicEditorViewController.h"/>
             <relationships>
+                <relationship kind="action" name="cancel:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="action" name="done:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="bodyText" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="titleField" candidateClass="UITextField"/>

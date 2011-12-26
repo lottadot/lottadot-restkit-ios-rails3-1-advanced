@@ -78,7 +78,11 @@
 - (IBAction)done:(UIBarButtonItem *)sender {
     self.topic.title = self.titleField.text;
     self.topic.body = self.bodyText.text;
-    [self.topicsViewController finishedEditing:self.topic];
+    [self.topicsViewController finishedEditing:self.topic AndCancelled:NO];
+}
+
+- (IBAction)cancel:(UIBarButtonItem *)sender {
+    [self.topicsViewController finishedEditing:self.topic AndCancelled:YES];
 }
 
 @end
