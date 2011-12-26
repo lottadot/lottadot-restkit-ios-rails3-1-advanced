@@ -196,10 +196,10 @@
                               toAttribute:@"title"]; 
     [postSerializationMapping mapKeyPath:@"body" 
                               toAttribute:@"body"];
-    [postSerializationMapping mapKeyPath:@"topic_id" 
-                             toAttribute:@"topicID"]; 
-    [postSerializationMapping mapKeyPath:@"user_id" 
-                             toAttribute:@"userID"]; 
+    [postSerializationMapping mapKeyPath:@"topicID" 
+                             toAttribute:@"topic_id"]; 
+    [postSerializationMapping mapKeyPath:@"authorID" 
+                             toAttribute:@"author_id"]; 
     
     [objectManager.mappingProvider 
      setSerializationMapping:postSerializationMapping forClass:[Post class]];
