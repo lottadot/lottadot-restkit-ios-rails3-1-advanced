@@ -95,12 +95,13 @@
 
 - (void)setupRestKit {   
     RKClient *client = [RKClient clientWithBaseURL:LDTHOSTNAME];
-    RKLogConfigureByName("RestKit/Network", RKLogLevelDebug);
-    RKLogInfo(@"Configured RestKit Client: %@", client);
+    NSLog(@"Configured RestKit Client: %@", client);
     
-    // See RKLog.h for more info on using the logging system to debug. 
-    //RKLogConfigureByName("RestKit/Network", RKLogLevelTrace); 
-    //RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelTrace); 
+    // See RKLog.h for more info on using the logging system to debug.    
+    RKLogConfigureByName("RestKit", RKLogLevelTrace); 
+    RKLogConfigureByName("RestKit/Network", RKLogLevelTrace); 
+    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelTrace); 
+    RKLogConfigureByName("RestKit/Network/Queue", RKLogLevelTrace); 
     
     // Enable automatic network activity indicator management
     client.requestQueue.showsNetworkActivityIndicatorWhenBusy = YES;
@@ -186,10 +187,12 @@
     [postMapping mapRelationship:@"topic" withMapping:topicMapping];
     [postMapping mapRelationship:@"author" withMapping:authorMapping];
     
-    [objectManager.mappingProvider setMapping:postMapping forKeyPath:@"posts"];
-    
+    [objectManager.mappingProvider setMapping:postMapping forKeyPath:@"/posts"];
+
+    // Tried this, was "too deep"
+    // RKObjectMapping *postSerializationMapping = [postMapping inverseMapping];
     RKObjectMapping *postSerializationMapping = [RKObjectMapping 
-                                                  mappingForClass:[Topic class]]; 
+                                                  mappingForClass:[Post class]]; 
     [postSerializationMapping mapKeyPath:@"postID" 
                               toAttribute:@"id"]; 
     [postSerializationMapping mapKeyPath:@"title" 
@@ -200,7 +203,7 @@
                              toAttribute:@"topic_id"]; 
     [postSerializationMapping mapKeyPath:@"authorID" 
                              toAttribute:@"author_id"]; 
-    
+        
     [objectManager.mappingProvider 
      setSerializationMapping:postSerializationMapping forClass:[Post class]];
 
