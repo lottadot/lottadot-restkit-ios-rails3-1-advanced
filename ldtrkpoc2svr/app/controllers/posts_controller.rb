@@ -44,12 +44,17 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
+    params[:post].delete(:id)
     @post = Post.new(params[:post])
-
+    logger.info "new post #{@post.as_json}"
+    logger.info "paramss #{params}"
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render json: @post, status: :created, location: @post }
+        # output = render json: @post, status: :created, location: @post
+        # format.json { output  }
+        # logger.info "gave-back #{output}"
       else
         format.html { render action: "new" }
         format.json { render json: @post.errors, status: :unprocessable_entity }
