@@ -2,7 +2,7 @@ class Post < ActiveRecord::Base
   belongs_to :topic
   belongs_to :author
   
-  JSON_ATTRS = ['title','body', 'comment', 'author']
+  JSON_ATTRS = ['id','title','body', 'comment', 'author']
   def old_as_json(options=nil)
     attributes.slice(*JSON_ATTRS).merge(:user => user)
   end
