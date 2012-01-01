@@ -19,3 +19,4 @@ lottadot_post = Post.create(title: 'lottadot rocks', body: 'this is the lottadot
 ios_post = Post.create(title: 'ios rocks', body: 'this is the ios post', author: john_doe, topic: ios_topic);
 objc_post = Post.create(title: 'objc rocks', body: 'this is the objc post', author: john_doe, topic: objc_topic);
 
+restkit_post2 = Post.create(title: 'reskit rolls', body: 'this is another restkit post', author: john_doe, topic: restkit_topic);

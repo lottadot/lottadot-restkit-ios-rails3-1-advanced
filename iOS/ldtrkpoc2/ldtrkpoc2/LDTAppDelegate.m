@@ -95,12 +95,13 @@
 
 - (void)setupRestKit {   
     RKClient *client = [RKClient clientWithBaseURL:LDTHOSTNAME];
-    RKLogConfigureByName("RestKit/Network", RKLogLevelDebug);
-    RKLogInfo(@"Configured RestKit Client: %@", client);
+    NSLog(@"Configured RestKit Client: %@", client);
     
-    // See RKLog.h for more info on using the logging system to debug. 
-    //RKLogConfigureByName("RestKit/Network", RKLogLevelTrace); 
-    //RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelTrace); 
+    // See RKLog.h for more info on using the logging system to debug.    
+    RKLogConfigureByName("RestKit", RKLogLevelTrace); 
+    RKLogConfigureByName("RestKit/Network", RKLogLevelTrace); 
+    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelTrace); 
+    RKLogConfigureByName("RestKit/Network/Queue", RKLogLevelTrace); 
     
     // Enable automatic network activity indicator management
     client.requestQueue.showsNetworkActivityIndicatorWhenBusy = YES;
@@ -145,7 +146,7 @@
     // [postMapping mapKeyPath:@"author" toRelationship:@"author" withMapping:authorMapping];
     
     // On a Topic the forKeyPath must be @"" rather then @"/topics"
-    [objectManager.mappingProvider setMapping:topicMapping forKeyPath:@""];
+    [objectManager.mappingProvider setMapping:topicMapping forKeyPath:@"/topics"];
     
     // Configure the Serialization mapping for a Widget. Without this a PostObject will fail
     // This post was helpful: https://groups.google.com/group/restkit/browse_frm/thread/959b6e30c86d257f/e0bc0a37b46c18a5?lnk=gst&q=You+must+provide+a+serialization+mapping+for+objects+of+type#e0bc0a37b46c18a5
@@ -186,21 +187,23 @@
     [postMapping mapRelationship:@"topic" withMapping:topicMapping];
     [postMapping mapRelationship:@"author" withMapping:authorMapping];
     
-    [objectManager.mappingProvider setMapping:postMapping forKeyPath:@"posts"];
-    
+    [objectManager.mappingProvider setMapping:postMapping forKeyPath:@"/posts"];
+
+    // Tried this, was "too deep"
+    // RKObjectMapping *postSerializationMapping = [postMapping inverseMapping];
     RKObjectMapping *postSerializationMapping = [RKObjectMapping 
-                                                  mappingForClass:[Topic class]]; 
+                                                  mappingForClass:[Post class]]; 
     [postSerializationMapping mapKeyPath:@"postID" 
                               toAttribute:@"id"]; 
     [postSerializationMapping mapKeyPath:@"title" 
                               toAttribute:@"title"]; 
     [postSerializationMapping mapKeyPath:@"body" 
                               toAttribute:@"body"];
-    [postSerializationMapping mapKeyPath:@"topic_id" 
-                             toAttribute:@"topicID"]; 
-    [postSerializationMapping mapKeyPath:@"user_id" 
-                             toAttribute:@"userID"]; 
-    
+    [postSerializationMapping mapKeyPath:@"topicID" 
+                             toAttribute:@"topic_id"]; 
+    [postSerializationMapping mapKeyPath:@"authorID" 
+                             toAttribute:@"author_id"]; 
+        
     [objectManager.mappingProvider 
      setSerializationMapping:postSerializationMapping forClass:[Post class]];
 
@@ -221,7 +224,7 @@
     
     //[authorMapping mapRelationship:@"post" withMapping:postMapping];
     
-    [objectManager.mappingProvider setMapping:authorMapping forKeyPath:@"authors"];
+    [objectManager.mappingProvider setMapping:authorMapping forKeyPath:@"/authors"];
     
     RKObjectMapping *authorSerializationMapping = [RKObjectMapping 
                                                  mappingForClass:[Author class]]; 
@@ -239,6 +242,45 @@
     
     [objectManager.router routeClass:[Author class] toResourcePath:@"/authors" forMethod:RKRequestMethodPOST];
 }
+
+//- (BOOL) isDatabaseResetNeeded {
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//    BOOL needsReset = [[NSUserDefaults standardUserDefaults] boolForKey:kResetSavedDatabaseKey];
+//    
+//    if (needsReset) {
+//        
+//        [SLFAlertView showWithTitle:NSLocalizedStringFromTable(@"Settings: Reset Data to Factory?", @"AppAlerts", @"Confirmation to delete and reset the app's database.")
+//                            message:NSLocalizedStringFromTable(@"Are you sure you want to reset the legislative database?  NOTE: The application may quit after this reset.  New data will be downloaded automatically via the Internet during the next app launch.", @"AppAlerts",@"") 
+//                        cancelTitle:NSLocalizedStringFromTable(@"Cancel",@"StandardUI",@"Cancelling some activity")
+//                        cancelBlock:^(void)
+//         {
+//             [self doDataReset:NO];
+//         }
+//                         otherTitle:NSLocalizedStringFromTable(@"Reset", @"StandardUI", @"Reset application settings to defaults")
+//                         otherBlock:^(void)
+//         {
+//             [self doDataReset:YES];
+//         }];
+//    }
+//    return needsReset;
+//}
+//
+//- (void)doDataReset:(BOOL)doReset {
+//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kResetSavedDatabaseKey];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//    
+//    if (doReset) {
+//        [self resetSavedDatabase:nil]; 
+//    }
+//}
+//
+//- (void) resetSavedDatabase:(id)sender {
+//    RKManagedObjectStore *objectStore = [[RKObjectManager sharedManager] objectStore];
+//    [objectStore deletePersistantStore];
+//    [objectStore save];    
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"DATA_STORE_RELOAD" object:nil];
+//    
+//}
 
 #pragma mark - Core Data stack
 

@@ -5,7 +5,7 @@
 #import "RootManagedObjectClass.h"
 
 extern const struct PostAttributes {
-	__unsafe_unretained NSString *authorID;
+	__unsafe_unretained NSString *authorID; 
 	__unsafe_unretained NSString *body;
 	__unsafe_unretained NSString *postID;
 	__unsafe_unretained NSString *title;
