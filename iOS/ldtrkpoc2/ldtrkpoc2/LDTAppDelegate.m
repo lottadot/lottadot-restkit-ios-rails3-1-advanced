@@ -146,7 +146,7 @@
     // [postMapping mapKeyPath:@"author" toRelationship:@"author" withMapping:authorMapping];
     
     // On a Topic the forKeyPath must be @"" rather then @"/topics"
-    [objectManager.mappingProvider setMapping:topicMapping forKeyPath:@""];
+    [objectManager.mappingProvider setMapping:topicMapping forKeyPath:@"/topics"];
     
     // Configure the Serialization mapping for a Widget. Without this a PostObject will fail
     // This post was helpful: https://groups.google.com/group/restkit/browse_frm/thread/959b6e30c86d257f/e0bc0a37b46c18a5?lnk=gst&q=You+must+provide+a+serialization+mapping+for+objects+of+type#e0bc0a37b46c18a5
@@ -224,7 +224,7 @@
     
     //[authorMapping mapRelationship:@"post" withMapping:postMapping];
     
-    [objectManager.mappingProvider setMapping:authorMapping forKeyPath:@"authors"];
+    [objectManager.mappingProvider setMapping:authorMapping forKeyPath:@"/authors"];
     
     RKObjectMapping *authorSerializationMapping = [RKObjectMapping 
                                                  mappingForClass:[Author class]]; 
@@ -242,6 +242,45 @@
     
     [objectManager.router routeClass:[Author class] toResourcePath:@"/authors" forMethod:RKRequestMethodPOST];
 }
+
+//- (BOOL) isDatabaseResetNeeded {
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//    BOOL needsReset = [[NSUserDefaults standardUserDefaults] boolForKey:kResetSavedDatabaseKey];
+//    
+//    if (needsReset) {
+//        
+//        [SLFAlertView showWithTitle:NSLocalizedStringFromTable(@"Settings: Reset Data to Factory?", @"AppAlerts", @"Confirmation to delete and reset the app's database.")
+//                            message:NSLocalizedStringFromTable(@"Are you sure you want to reset the legislative database?  NOTE: The application may quit after this reset.  New data will be downloaded automatically via the Internet during the next app launch.", @"AppAlerts",@"") 
+//                        cancelTitle:NSLocalizedStringFromTable(@"Cancel",@"StandardUI",@"Cancelling some activity")
+//                        cancelBlock:^(void)
+//         {
+//             [self doDataReset:NO];
+//         }
+//                         otherTitle:NSLocalizedStringFromTable(@"Reset", @"StandardUI", @"Reset application settings to defaults")
+//                         otherBlock:^(void)
+//         {
+//             [self doDataReset:YES];
+//         }];
+//    }
+//    return needsReset;
+//}
+//
+//- (void)doDataReset:(BOOL)doReset {
+//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kResetSavedDatabaseKey];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//    
+//    if (doReset) {
+//        [self resetSavedDatabase:nil]; 
+//    }
+//}
+//
+//- (void) resetSavedDatabase:(id)sender {
+//    RKManagedObjectStore *objectStore = [[RKObjectManager sharedManager] objectStore];
+//    [objectStore deletePersistantStore];
+//    [objectStore save];    
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"DATA_STORE_RELOAD" object:nil];
+//    
+//}
 
 #pragma mark - Core Data stack
 

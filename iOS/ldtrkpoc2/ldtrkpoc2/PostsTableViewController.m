@@ -36,6 +36,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    NSLog(@"viewDidLoad");
     [self fetchPostsDataFromRemote];
 }
 
@@ -57,7 +58,7 @@
     }
     self.debug = YES;
     //[self performFetch];
-    NSLog(@"count:%i",[[self.fetchedResultsController sections] count]);
+    NSLog(@"viewWillAppear count:%i",[[self.fetchedResultsController sections] count]);
     //[self.tableView reloadData];
     
 }
@@ -69,6 +70,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    // Depricated? No need for this?
+    //[[RKRequestQueue sharedQueue] cancelRequestsWithDelegate:self];
 	[super viewWillDisappear:animated];
 }
 
@@ -151,6 +154,15 @@
 
 - (void)setupPostsFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
+    /* TODO Possibly use simpler fetching
+     NSFetchRequest *request = [Post fetchRequest]; 
+     
+     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
+     request.predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"topicID = %i",[self.topic.topicID intValue]]];
+     
+     return [NSArray arrayWithObject:request];
+     */
+    
     if (nil == self.fetchedResultsController) {       
         //NSManagedObjectContext *managedObjectContext = [ApplicationDelegate managedObjectContext];
         
@@ -170,6 +182,7 @@
 }
 
 - (void)fetchPostsDataFromRemote {
+
     // Load the object model via RestKit	
     RKObjectManager* objectManager = [RKObjectManager sharedManager];
     NSString *url = [NSString stringWithFormat:@"/topics/%d/posts",[[self.topic topicID] intValue]];
@@ -189,6 +202,10 @@
 	NSLog(@"objectLoader didLoadObjects: %@", objects);
 	//[self loadObjectsFromDataStore];
     //[self performFetch];
+    
+    //NSDictionary* params = [NSDictionary dictionaryWithObject:@"RestKit" forKey:@"Sender"];
+    
+    [self.tableView reloadData];
 }
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {
@@ -203,6 +220,7 @@
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObject:(id)object {
     if ([object class] == [Post class]) {
+        NSLog(@"*********************** objectLoader didLoadObject  Post: id: %i",[[object postID] intValue]);
         /* we pushed a Post object to the Server and are notified by RestKit's RKObjectLoader's Delegate Protocol that it was a success.
          If it was a new object, the new object would have a new ID value, so the table should be updated
          */
@@ -245,48 +263,38 @@
         /*
          the segue’s destinationViewController is not the editor view controller, but rather a navigation controller
          */
-        Post *newPost = nil;
-        newPost = (Post *)[NSEntityDescription 
-                             insertNewObjectForEntityForName:@"Post" 
-                             inManagedObjectContext:self.fetchedResultsController.managedObjectContext];
-        
-        [newPost setTitle:@"title text"];
-        [newPost setBody:@"body text"];
-        
-        /* TODO: Not sure what I've got to setup at this point. I tried setTopic: (alone, without a setTopicId) and the POST of that 
-         errored with: 
-         *** Terminating app due to uncaught exception 'NSUnknownKeyException', reason: '[<Post 0x6ea4110> valueForUndefinedKey:]: the entity Post is not key value coding-compliant for the key "topic_id".'
-         I think because newPost.topicID = 0 
-         */
-        [newPost setTopic:self.topic];
-        [newPost setTopicID:self.topic.topicID];
-        
-        
-        
-        // TODO: Author Must be defined. OR the UI when editting a Post needs to let the user select an Author
-//        RKObjectManager* objectManager = [RKObjectManager sharedManager];
-//        [objectManager loadObjectsAtResourcePath:@"/authors" delegate:self 
-//                                           block:^(RKObjectLoader* loader) {
-//                                               // The backend returns topics as a naked array in JSON, so we instruct the loader
-//                                               // to user the appropriate object mapping
-//                                               loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[Author class]];
-//                                               // author = [[loader objectAtIndex] lastObject];
-//                                           }];
-//         //[responseLoader.objects lastObject];
+//        Post *newPost = nil;
+//        newPost = (Post *)[NSEntityDescription 
+//                             insertNewObjectForEntityForName:@"Post" 
+//                             inManagedObjectContext:self.fetchedResultsController.managedObjectContext];
 
-        
-  
+        Author *author;
+        //NSArray *authorsSorted = [Author findAllSortedByProperty:@"userName" ascending: YES];
         NSFetchRequest *request = [Author fetchRequest];
         NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"userName" ascending:YES];
         [request setSortDescriptors:[NSArray arrayWithObject:descriptor]];
         NSArray *authors = [Author objectsWithFetchRequest:request];
-
         if (nil != authors && [authors count]) {
-            Author *author = [authors lastObject];
+            author = [authors lastObject];
+        }
+        
+        /* Create the new "empty" Post */
+        Post *newPost = [Post object];
+        
+        
+        [newPost setTitle:@"title text"];
+        [newPost setBody:@"body text"];
+        
+        // Set this new Post's Topic
+        [newPost setTopic:self.topic];
+        [newPost setTopicID:self.topic.topicID];
+                
+        if (nil != author) {
+            // Set this new Post's Author
             [newPost setAuthor:author];
             [newPost setAuthorID:author.authorID];
         }
-                  
+        
         UIViewController *topVC = [[segue destinationViewController] topViewController];
         PostEditorViewController *editor = (PostEditorViewController *)topVC;
         editor.post = newPost;
@@ -304,20 +312,20 @@
 
 - (void)finishedEditing:(Post *)aPost AndCancelled:(BOOL)cancelled {
     if (nil != aPost && !cancelled) {
-        //[[RKObjectManager sharedManager] postObject:aPost delegate:self];
-        [[RKObjectManager sharedManager] postObject:aPost delegate:self block:^(RKObjectLoader *loader) { 
-            // Skip the object serializer and provide it yourself 
-            // No reason to try a 
-            //[self.tableView reloadData];
-            // here, we will attempt to reload the row in - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObject:(id)object
-
-                NSIndexPath *indexPath = [self indexPathForObject:aPost];
-                if (indexPath) {
-                    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-                }
-
-            
+        // Rails 3 defaults to not encapsulating the returned object { "post" : { "id" : 999, ....
+        // The only way this will work, 
+        // http://groups.google.com/group/restkit/browse_thread/thread/2463f121ae851976/c4f46703ddbedc6b?lnk=gst&q=postObject+block#c4f46703ddbedc6b
+         
+        [[RKObjectManager sharedManager] postObject:aPost delegate:self block:^(RKObjectLoader* loader) { 
+            loader.resourcePath = @"/posts";
+            // if you don't want to map the response back onto the original object being POST'd, 
+            // you can just nil out the targetObject.
+            // When the target object is nil RestKit will instantiate new target 
+            // objects (or look them up if using Core Data) 
+            //loader.targetObject = nil;
+            loader.objectMapping = [[RKObjectManager sharedManager].mappingProvider objectMappingForKeyPath:@"/posts"]; 
         }]; 
+        
         
     } else if (nil != aPost && cancelled) {
         if ([[aPost postID] intValue] <1) {
