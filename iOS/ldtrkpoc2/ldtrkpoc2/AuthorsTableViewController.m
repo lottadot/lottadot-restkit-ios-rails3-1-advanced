@@ -35,7 +35,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+	[[RKClient sharedClient].requestQueue cancelRequestsWithDelegate:self];
 }
 
 - (void)viewDidUnload
