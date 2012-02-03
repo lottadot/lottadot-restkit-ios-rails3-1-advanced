@@ -11,6 +11,7 @@
 		3426F4ED1498119200374120 /* _Author.m in Sources */ = {isa = PBXBuildFile; fileRef = 3426F4EC1498119200374120 /* _Author.m */; };
 		3426F4F01498119D00374120 /* Author.m in Sources */ = {isa = PBXBuildFile; fileRef = 3426F4EF1498119C00374120 /* Author.m */; };
 		3438DBFC14985BD400EF682F /* AuthorsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3438DBFB14985BD400EF682F /* AuthorsTableViewController.m */; };
+		345599D514D8FA3B00C771B0 /* TopicsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C08A891491A2E6001EA6FF /* TopicsTableViewController.m */; };
 		346D54BC149835BA00D1B4CE /* PostsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 346D54BA149835BA00D1B4CE /* PostsTableViewController.m */; };
 		34A33BE2149AF8C600FEE947 /* TopicEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34A33BE1149AF8C600FEE947 /* TopicEditorViewController.m */; };
 		34BC8E4814A8FEE700EC0683 /* PostEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34BC8E4614A8FEE700EC0683 /* PostEditorViewController.m */; };
@@ -21,7 +22,6 @@
 		34C08A801491A2E6001EA6FF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C08A7F1491A2E6001EA6FF /* main.m */; };
 		34C08A841491A2E6001EA6FF /* LDTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C08A831491A2E6001EA6FF /* LDTAppDelegate.m */; };
 		34C08A871491A2E6001EA6FF /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34C08A851491A2E6001EA6FF /* MainStoryboard.storyboard */; };
-		34C08A8A1491A2E6001EA6FF /* TopicsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C08A891491A2E6001EA6FF /* TopicsTableViewController.m */; };
 		34C08A921491A2E7001EA6FF /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C08A911491A2E7001EA6FF /* SenTestingKit.framework */; };
 		34C08A931491A2E7001EA6FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C08A731491A2E6001EA6FF /* UIKit.framework */; };
 		34C08A941491A2E7001EA6FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C08A751491A2E6001EA6FF /* Foundation.framework */; };
@@ -475,9 +475,9 @@
 			files = (
 				34C08A801491A2E6001EA6FF /* main.m in Sources */,
 				34C08A841491A2E6001EA6FF /* LDTAppDelegate.m in Sources */,
-				34C08A8A1491A2E6001EA6FF /* TopicsTableViewController.m in Sources */,
 				34C08AEC1491A747001EA6FF /* ldtrkpoc2.xcdatamodeld in Sources */,
 				346D54BC149835BA00D1B4CE /* PostsTableViewController.m in Sources */,
+				345599D514D8FA3B00C771B0 /* TopicsTableViewController.m in Sources */,
 				34DFC9181492637F00623D70 /* Post.m in Sources */,
 				34DFC9191492637F00623D70 /* Topic.m in Sources */,
 				34DFC91F1492640F00623D70 /* RootManagedObjectClass.m in Sources */,
