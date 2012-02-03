@@ -12,10 +12,11 @@
 
 @class Topic, Post, Author;
 
-@interface TopicsTableViewController : CoreDataTableViewController <RKObjectLoaderDelegate> {
+@interface TopicsTableViewController : CoreDataTableViewController <RKObjectLoaderDelegate> 
+{
     
 }
 
 - (void)finishedEditing:(Topic *)aTopic AndCancelled:(BOOL)cancelled;
-
+- (IBAction)deleteAllButtonClicked:(id)sender;
 @end

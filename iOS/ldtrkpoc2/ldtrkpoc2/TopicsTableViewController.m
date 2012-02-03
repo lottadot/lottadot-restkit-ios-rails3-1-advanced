@@ -17,6 +17,7 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 - (void)setupFetchedResultsController;
 - (void)fetchTopicDataFromRemote;
+- (void)deleteAllObjects:(NSString *)entityDescription;
 @end
 
 @implementation TopicsTableViewController
@@ -240,6 +241,19 @@
         }
     }
     [self dismissModalViewControllerAnimated:YES];
+}
+
+- (IBAction)deleteAllButtonClicked:(id)sender {
+    NSArray* objects = [Topic findAll]; 
+    for (Topic *object in objects) { 
+        [[Topic managedObjectContext] deleteObject:object]; 
+    } 
+    NSError* error = nil; 
+    [[Topic managedObjectContext] save:&error]; 
+    if (nil != error) { 
+        // Error checking here... 
+    }
+    [self.tableView reloadData];
 }
 
 @end

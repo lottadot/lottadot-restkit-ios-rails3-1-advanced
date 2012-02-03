@@ -114,6 +114,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Topics" id="CUa-q4-4W6">
+                        <barButtonItem key="leftBarButtonItem" title="Deleteall" id="Hxk-yl-0Ue">
+                            <connections>
+                                <action selector="deleteAllButtonClicked:" destination="2" id="bcD-Wc-Pwt"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="2Hg-dX-ULT">
                             <connections>
                                 <segue destination="eTz-Dy-0Rs" kind="modal" identifier="addTopic" id="lYo-s2-6QL"/>
@@ -369,6 +374,9 @@
         </class>
         <class className="TopicsTableViewController" superclassName="CoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TopicsTableViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="deleteAllButtonClicked:"/>
+            </relationships>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
