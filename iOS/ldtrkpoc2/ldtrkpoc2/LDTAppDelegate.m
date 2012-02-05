@@ -115,6 +115,17 @@
     objectManager.acceptMIMEType = RKMIMETypeJSON; 
     objectManager.serializationMIMEType = RKMIMETypeJSON;
     
+    
+    /*
+     We want to initialize RestKit with a Core Data Managed Object Store, backed by a SQLLite file. 
+     If we provide a seed database, we can pass that in as well.
+     RestKit's objectStoreWithStoreFilename will take care of creating, seeding, and merging from 
+     main bundle for you.
+     
+     Note that objectStoreWithStoreFilename will end using initWithStoreFilename which will 
+     retain the Moc.
+     */
+    
     NSString *seedDatabaseName = nil;
     NSString *databaseName = @"ldtrkpoc2.sqlite";
     objectManager.objectStore = [RKManagedObjectStore objectStoreWithStoreFilename:databaseName 
