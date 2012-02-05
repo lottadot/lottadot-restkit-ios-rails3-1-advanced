@@ -133,14 +133,15 @@
                                                                 managedObjectModel:nil 
                                                                           delegate:self];
     
-#pragma Reskit Mappings
+#pragma mark - Reskit Mappings
     
     //RKManagedObjectMapping	*topicMapping	= [RKObjectMapping mappingForClass:[Topic class]];
     RKManagedObjectMapping	*topicMapping	= [RKManagedObjectMapping mappingForEntityWithName:@"Topic"];
     RKManagedObjectMapping	*postMapping	= [RKManagedObjectMapping mappingForEntityWithName:@"Post"];
     RKManagedObjectMapping	*authorMapping	= [RKManagedObjectMapping mappingForEntityWithName:@"Author"];
     
-#pragma Restkit Topic Setup    
+#pragma mark - Restkit Topic Setup  
+    
     [topicMapping mapKeyPathsToAttributes:@"id", @"topicID",
      @"title", @"title",
      @"body", @"body",
@@ -183,7 +184,8 @@
 	[objectManager.router routeClass:[Topic class] toResourcePath:@"/topics/(topicID)" forMethod:RKRequestMethodPUT];
 	[objectManager.router routeClass:[Topic class] toResourcePath:@"/topics/(topicID)" forMethod:RKRequestMethodDELETE];
     
-#pragma Reskit Post Setup
+#pragma mark - Reskit Post Model Setup
+    
     [postMapping mapKeyPathsToAttributes:@"id", @"postID",
      @"title", @"title",
      @"body", @"body",
@@ -226,7 +228,8 @@
     // :list.listID/tasks/:taskID
     // [objectManager.router routeClass:[Post class] toResourcePath:@"/topics/:topic.topicID/posts/:postID"];
     
-#pragma Reskit Author Setup
+#pragma mark - Reskit Author Model Setup
+    
     [authorMapping mapKeyPathsToAttributes:@"id", @"authorID",
      @"email", @"email",
      @"username", @"userName",

@@ -19,4 +19,5 @@
 
 - (void)finishedEditing:(Topic *)aTopic AndCancelled:(BOOL)cancelled;
 - (IBAction)deleteAllButtonClicked:(id)sender;
+- (IBAction)refreshButtonClicked:(id)sender;
 @end

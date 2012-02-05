@@ -114,9 +114,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Topics" id="CUa-q4-4W6">
-                        <barButtonItem key="leftBarButtonItem" title="Deleteall" id="Hxk-yl-0Ue">
+                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="Hxk-yl-0Ue">
                             <connections>
-                                <action selector="deleteAllButtonClicked:" destination="2" id="bcD-Wc-Pwt"/>
+                                <action selector="refreshButtonClicked:" destination="2" id="mEb-fQ-PKO"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="2Hg-dX-ULT">
@@ -376,6 +376,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TopicsTableViewController.h"/>
             <relationships>
                 <relationship kind="action" name="deleteAllButtonClicked:"/>
+                <relationship kind="action" name="refreshButtonClicked:"/>
             </relationships>
         </class>
     </classes>
