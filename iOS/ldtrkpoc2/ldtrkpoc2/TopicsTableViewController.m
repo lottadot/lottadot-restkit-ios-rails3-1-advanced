@@ -261,4 +261,8 @@
     [self.tableView reloadData];
 }
 
+- (IBAction)refreshButtonClicked:(id)sender {
+    [self fetchTopicDataFromRemote];
+}
+
 @end
