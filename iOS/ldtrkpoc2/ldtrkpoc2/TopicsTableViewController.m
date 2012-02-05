@@ -137,21 +137,27 @@
 
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
-    if (nil == self.fetchedResultsController) {       
+    if (nil == self.fetchedResultsController) { 
+        //Ancient Way:
+        //Normally one would use the MOC From the Main Thread/AppDelegate to fetch against 
+        //However with RestKit we do not need to.
         //NSManagedObjectContext *managedObjectContext = [ApplicationDelegate managedObjectContext];
 
+//        // Old Way
+//        // We'd create a FetchRequest and tell the request to use the Moc from RestKit
+//        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Topic"];
+//        request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
+//        // no predicate because we want ALL the Topics
+//        
+//        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+//                                                                            //managedObjectContext:managedObjectContext
+//                                                                            managedObjectContext: [[RKObjectManager
+//                                                                                                    sharedManager].objectStore managedObjectContext]
+//                                                                              sectionNameKeyPath:nil
+//                                                                                       cacheName:nil];
+
         
-        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Topic"];
-        request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
-        // no predicate because we want ALL the Topics
-        
-        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
-                                                                            //managedObjectContext:managedObjectContext
-                                                                            managedObjectContext: [[RKObjectManager
-                                                                                                    sharedManager].objectStore managedObjectContext]
-                                                                              sectionNameKeyPath:nil
-                                                                                       cacheName:nil];
-            
+        self.fetchedResultsController = [Topic fetchAllSortedBy:@"title" ascending:YES withPredicate:nil groupBy:nil];
         
     }
 }
@@ -176,7 +182,6 @@
 	NSLog(@"Loaded topics: %@", objects);
 	//[self loadObjectsFromDataStore];
     [self performFetch];
-	[self.tableView reloadData];
 }
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {
