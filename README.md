@@ -26,24 +26,35 @@ Quick Start (aka TL;DR)
 
 (clone the repo):
 
-* cd lottadot-restkit-ios-rails3-1-advanced
+```console
+cd lottadot-restkit-ios-rails3-1-advanced
+```console
 
 (update the git submodule that points to Restkit):
 
-* git submodule update --init --recursive
+```console
+git submodule update --init --recursive
+```console
 
 (start the rails app in a terminal window):
 
-* cd ldtrkpoc2svr
+```console
+cd ldtrkpoc2svr
+```console
 
 (if you use RVM:)
-* rvm use ruby-1.9.2-p290@ldtrkpoc2svr
+```console
+rvm use ruby-1.9.2-p290@ldtrkpoc2svr
+```console
+
 (If you see something like 'report_activate_error' you'll have to do 'gem install rails'. If you see something about gemset doesn't exist, then follow rvm's instructions to install the new gemset (ie rvm --create use ruby-1.9.2-p290@ldtrkpoc2svr ), and don't forget to 'gem install rails' when it's finished.)
 
-* bundle install
-* rake db:migrate
-* rake db:seed
-* rails s
+```console
+bundle install
+rake db:migrate
+rake db:seed
+rails s
+```console
 
 Open a web browser and open [http://lvh.me:3000/](http://lvh.me:3000/)
 
@@ -57,6 +68,15 @@ You should see
 [![](http://dl.dropbox.com/u/212730/lottadot-restkit-ios-rails3-1-advanced_screenshot.png)](http://dl.dropbox.com/u/212730/lottadot-restkit-ios-rails3-1-advanced_screenshot.png)
 
 If you press the 'add one' button it should contact the website, create a new Topic on the website. After creating it should update the UITableView so you see the new Topic.
+
+---
+###Optional
+
+If you'd like to "load test", you can generate random-topic-data (default is 150 records) Run:
+
+```console
+rake myapp:load:random_topics
+```console
 
 ---
 ###TODO

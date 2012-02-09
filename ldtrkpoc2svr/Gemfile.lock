@@ -42,6 +42,7 @@ GEM
     erubis (2.7.0)
     execjs (1.2.12)
       multi_json (~> 1.0)
+    ffaker (1.12.1)
     hike (1.2.1)
     i18n (0.6.0)
     jquery-rails (1.0.19)
@@ -81,6 +82,7 @@ GEM
       rdoc (~> 3.4)
       thor (~> 0.14.6)
     rake (0.9.2.2)
+    random_data (1.5.2)
     rdoc (3.12)
       json (~> 1.4)
     sass (3.1.12)
@@ -111,9 +113,11 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 3.1.1)
+  ffaker
   jquery-rails
   minitest
   rails (= 3.1.1)
+  random_data
   sass-rails (~> 3.1.4)
   sqlite3
   turn

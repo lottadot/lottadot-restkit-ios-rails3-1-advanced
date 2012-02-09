@@ -35,3 +35,6 @@ group :test do
   gem 'turn', :require => false
   gem "minitest"
 end
+
+gem 'ffaker'
+gem 'random_data'
