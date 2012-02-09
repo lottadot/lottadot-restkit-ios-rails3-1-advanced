@@ -232,7 +232,20 @@
 
 - (void)finishedEditing:(Topic *)aTopic AndCancelled:(BOOL)cancelled {
     if (nil != aTopic && !cancelled) {
-        [ [RKObjectManager sharedManager] postObject:aTopic delegate:self];
+        // Rails 3 defaults to not encapsulating the returned object { "topic" : { "id" : 999, ....
+        // The only way this will work, 
+        // http://groups.google.com/group/restkit/browse_thread/thread/2463f121ae851976/c4f46703ddbedc6b?lnk=gst&q=postObject+block#c4f46703ddbedc6b
+        
+        [[RKObjectManager sharedManager] postObject:aTopic delegate:self block:^(RKObjectLoader* loader) { 
+            loader.resourcePath = @"/topics";
+            // if you don't want to map the response back onto the original object being POST'd, 
+            // you can just nil out the targetObject.
+            // When the target object is nil RestKit will instantiate new target 
+            // objects (or look them up if using Core Data) 
+            //loader.targetObject = nil;
+            loader.objectMapping = [[RKObjectManager sharedManager].mappingProvider objectMappingForKeyPath:@"/topics"]; 
+        }]; 
+        
     } else if (nil != aTopic && cancelled) {
         if ([[aTopic topicID] intValue] <1) {
             // The topic was a new topic, but it was cancelled. It needs to be deleted out of the MOC
